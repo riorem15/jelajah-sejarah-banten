@@ -545,24 +545,55 @@
         showLoading();
 
         try {
-            // Panggil Vercel Serverless Function
-            const response = await fetch('/api/gemini', {
+            // Bulletproof Frontend-only Approach
+            let apiKey = localStorage.getItem('gemini_api_key');
+            if (!apiKey) {
+                apiKey = prompt("PENGATURAN AWAL: Silakan tempelkan (paste) API Key Gemini Anda di sini untuk mengaktifkan AI:");
+                if (!apiKey) {
+                    removeLoading();
+                    appendMessage("❌ Akses ditolak karena API Key kosong. Silakan refresh halaman dan coba lagi.", 'ai');
+                    aiChatInput.disabled = false;
+                    aiChatSubmitBtn.disabled = false;
+                    return;
+                }
+                localStorage.setItem('gemini_api_key', apiKey.trim());
+            }
+
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+            const systemInstruction = "ATURAN WAJIB: Kamu adalah 'Pusaka Banten AI', asisten sejarah Banten. Jawablah HANYA mengenai sejarah Banten, kesultanan, dan cagar budaya Banten. Tolak pertanyaan lain dengan sopan.\n\nPertanyaan Pengguna: ";
+            
+            const requestBody = {
+                contents: [{
+                    parts: [{ text: systemInstruction + prompt }]
+                }]
+            };
+
+            const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt })
+                body: JSON.stringify(requestBody)
             });
 
             const data = await response.json();
             removeLoading();
 
-            if (response.ok) {
-                appendMessage(data.reply, 'ai');
+            if (data.error) {
+                // Jika API Key salah, hapus dari memori agar bisa memasukkan ulang
+                if (data.error.message.toLowerCase().includes('key') || response.status === 400 || response.status === 403) {
+                    localStorage.removeItem('gemini_api_key');
+                    appendMessage("❌ API Key tidak valid atau salah. Sistem telah meresetnya. Silakan kirim pesan lagi untuk memasukkan API Key yang benar.", 'ai');
+                } else {
+                    appendMessage("❌ Error Google: " + data.error.message, 'ai');
+                }
+            } else if (data.candidates && data.candidates[0].content) {
+                appendMessage(data.candidates[0].content.parts[0].text, 'ai');
             } else {
-                appendMessage("❌ Error: " + (data.error || "Gagal menghubungi server."), 'ai');
+                appendMessage("❌ Gagal memahami format balasan server.", 'ai');
             }
+
         } catch (error) {
             removeLoading();
-            appendMessage("❌ Terjadi kesalahan koneksi. Pastikan internet Anda aktif.", 'ai');
+            appendMessage("❌ Terjadi kesalahan koneksi jaringan. Pastikan internet Anda aktif.", 'ai');
         } finally {
             aiChatInput.disabled = false;
             aiChatSubmitBtn.disabled = false;
