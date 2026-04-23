@@ -573,9 +573,9 @@
 </script>
 
     <!-- Floating AI Chat Widget -->
-    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    <div class="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 flex flex-col items-end">
         <!-- Chat Window (Hidden by default) -->
-        <div id="aiChatWindow" class="hidden w-[350px] h-[450px] bg-background/90 backdrop-blur-xl rounded-2xl border border-primary-container/30 shadow-2xl mb-4 flex-col overflow-hidden transition-all duration-300 transform origin-bottom-right scale-95 opacity-0">
+        <div id="aiChatWindow" class="hidden w-[calc(100vw-2rem)] max-w-[350px] h-[400px] md:h-[450px] bg-background/90 backdrop-blur-xl rounded-2xl border border-primary-container/30 shadow-2xl mb-4 flex-col overflow-hidden transition-all duration-300 transform origin-bottom-right scale-95 opacity-0">
             <!-- Header -->
             <div class="bg-primary px-5 py-4 flex justify-between items-center shadow-md z-10">
                 <div class="flex items-center gap-3">
