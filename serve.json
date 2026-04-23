@@ -1,0 +1,10 @@
+{
+  "cleanUrls": false,
+  "rewrites": [
+    { "source": "/dashboard", "destination": "/dashboard.html" },
+    { "source": "/etalase", "destination": "/etalase.html" },
+    { "source": "/detail", "destination": "/detail.html" },
+    { "source": "/materi", "destination": "/materi.html" },
+    { "source": "/manuskrip", "destination": "/manuskrip.html" }
+  ]
+}

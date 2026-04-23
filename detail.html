@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Situs Detail - Pusaka Banten</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="js/tailwind.config.js?v=5"></script>
+    <link href="css/style.css?v=5" rel="stylesheet"/>
+    <script src="js/theme.js?v=5"></script>
+</head>
+<body class="bg-background font-body text-on-surface selection:bg-primary-container/30">
+
+<nav class="fixed top-0 w-full z-50 bg-primary shadow-lg border-b border-primary-container/30 flex justify-between items-center px-4 md:px-12 py-3 md:py-4 gap-2">
+    <div class="text-xl md:text-2xl font-bold font-headline text-primary-container tracking-widest flex items-center gap-2 z-50">
+        <span class="material-symbols-outlined">account_balance</span>
+        <span class="hidden sm:block">Pusaka Banten</span>
+    </div>
+    
+    <div class="flex items-center gap-4 md:gap-6 justify-end flex-1">
+        <button id="themeToggleBtn" title="Mode Siang / Malam" class="text-primary-container hover:scale-110 transition-transform p-1">
+            <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+
+        <a href="kontribusi.html" class="flex items-center gap-2 bg-primary-container text-primary font-bold text-xs tracking-widest uppercase hover:opacity-80 transition-opacity px-3 md:px-4 py-2 rounded-full shadow-md ml-1 md:ml-3">
+            <span class="material-symbols-outlined text-sm">edit_square</span>
+            <span class="hidden sm:inline">Kontribusi</span>
+        </a>
+
+        <a href="dashboard.html" class="flex items-center gap-2 text-primary-container/80 font-bold text-sm tracking-widest uppercase hover:text-primary-container transition-colors border-l border-primary-container/50 pl-4 md:pl-6">
+            <span class="material-symbols-outlined text-sm">home</span>
+            <span class="hidden sm:inline">Beranda Navigasi</span>
+        </a>
+    </div>
+</nav>
+
+<!-- Full Width High Res Header -->
+<header class="relative h-[65vh] w-full overflow-hidden bg-[#2c1c1c] border-b-4 border-primary">
+    <!-- Image -->
+    <img id="detailHeroImage" src="" alt="Hero Image" class="w-full h-full object-cover mix-blend-luminosity parallax-bg opacity-80" data-speed="0.3" />
+    <div class="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/40 to-transparent"></div>
+    
+    <div class="absolute bottom-16 left-0 w-full px-6 md:px-12 max-w-[1440px] mx-auto">
+        <div class="flex flex-col gap-3" data-aos="fade-up" data-aos-duration="1000">
+            <button onclick="window.history.back()" class="inline-flex items-center gap-2 text-primary-container hover:text-outline-variant transition-colors text-xs uppercase tracking-widest font-bold w-fit mb-3">
+                <span class="material-symbols-outlined text-sm">arrow_back</span> Kembali Laman Sebelumnya
+            </button>
+            <div class="flex items-center gap-4">
+                <span class="inline-block px-3 py-1 bg-outline-variant text-[#5E0B15] text-[10px] font-bold tracking-widest uppercase rounded">
+                    Cagar Budaya
+                </span>
+                <span id="detailWilayah" class="text-primary-container font-headline italic tracking-wide text-lg flex items-center gap-1">
+                    <span class="material-symbols-outlined text-sm">location_on</span> Wilayah
+                </span>
+            </div>
+            <h1 id="detailNama" class="text-5xl md:text-7xl font-headline font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#FCEABB] via-[#F8B500] to-[#FCEABB] leading-tight drop-shadow-lg p-0 pb-2">Nama Situs</h1>
+        </div>
+    </div>
+</header>
+
+<main class="relative z-10 px-6 md:px-12 pb-32 max-w-[1440px] mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mt-12 md:mt-16">
+        
+        <!-- Left Column: History Narrative -->
+        <div class="lg:col-span-8 space-y-8">
+            
+            <!-- Quick Info Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" data-aos="fade-up">
+                <div class="bg-surface border border-outline-variant rounded-xl p-4 flex flex-col justify-center items-center text-center shadow-sm">
+                    <span class="material-symbols-outlined text-primary mb-2 text-2xl">payments</span>
+                    <span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Harga Tiket</span>
+                    <span id="infoTiket" class="text-xs font-bold text-primary mt-1 leading-tight">--</span>
+                </div>
+                <div class="bg-surface border border-outline-variant rounded-xl p-4 flex flex-col justify-center items-center text-center shadow-sm">
+                    <span class="material-symbols-outlined text-primary mb-2 text-2xl">schedule</span>
+                    <span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Jadwal</span>
+                    <span id="infoJadwal" class="text-xs font-bold text-primary mt-1 leading-tight">--</span>
+                </div>
+                <div class="bg-surface border border-outline-variant rounded-xl p-4 flex flex-col justify-center items-center text-center shadow-sm">
+                    <span class="material-symbols-outlined text-primary mb-2 text-2xl">star</span>
+                    <span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Rating</span>
+                    <span id="infoRating" class="text-xs font-bold text-primary mt-1 leading-tight">--</span>
+                </div>
+                <div class="bg-surface border border-outline-variant rounded-xl p-4 flex flex-col justify-center items-center text-center shadow-sm">
+                    <span class="material-symbols-outlined text-primary mb-2 text-2xl">landscape</span>
+                    <span class="text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Elevasi</span>
+                    <span id="infoElevasi" class="text-xs font-bold text-primary mt-1 leading-tight">--</span>
+                </div>
+            </div>
+
+            <div class="bg-surface rounded-2xl p-8 md:p-12 shadow-sm border border-outline-variant" data-aos="fade-up" data-aos-delay="100">
+                <h2 class="text-3xl font-headline text-primary mb-6 border-b-2 border-primary-container pb-4 inline-block font-bold">Narasi Sejarah</h2>
+                <article class="prose prose-lg prose-p:font-headline prose-p:text-on-surface-variant prose-p:leading-[1.8] prose-p:text-lg max-w-none text-justify">
+                    <p id="detailDeskripsi">
+                        Deskripsi akan dimuat di sini secara otomatis berdasarkan database.
+                    </p>
+                </article>
+            </div>
+            
+        </div>
+
+        <!-- Right Column: API Widgets (Weather + Maps) -->
+        <aside class="lg:col-span-4 space-y-8">
+            
+            <!-- Real-Time Weather (Open-Meteo) -->
+            <div class="bg-surface p-6 rounded-2xl shadow-sm border border-outline-variant" data-aos="fade-left" data-aos-delay="100">
+                <div class="flex justify-between items-center mb-6 border-b border-outline-variant pb-3">
+                    <span class="text-xs font-bold uppercase tracking-widest text-primary flex items-center gap-2">
+                        <span class="material-symbols-outlined text-base">cloudy_snowing</span> Analisis Cuaca Real-Time
+                    </span>
+                    <span class="text-[10px] bg-primary/10 text-primary px-2 py-1 rounded-sm font-bold tracking-widest uppercase shadow-sm">Live Meteo</span>
+                </div>
+                
+                <div id="weatherContainer" class="py-2">
+                    <!-- Loading Skeleton -->
+                    <div id="weatherLoading" class="animate-pulse flex flex-col gap-3">
+                        <div class="h-10 w-24 bg-surface-variant rounded"></div>
+                        <div class="h-4 w-32 bg-surface-variant rounded"></div>
+                        <div class="h-4 w-48 bg-surface-variant rounded"></div>
+                    </div>
+
+                    <!-- Data Injected Here -->
+                    <div id="weatherData" class="hidden">
+                        <div class="flex items-end gap-3 mb-2">
+                            <span id="wtTemp" class="text-4xl font-headline font-bold text-primary">--°C</span>
+                            <span class="text-on-surface-variant pb-1 font-body text-sm font-semibold">Saat Ini</span>
+                        </div>
+                        <div class="flex items-center gap-4 mt-6 bg-surface-variant/40 p-4 rounded-xl border border-outline-variant/50">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary text-sm">water_drop</span>
+                                <div class="flex flex-col">
+                                    <span class="text-[10px] uppercase font-bold text-on-surface-variant">Kelembaban</span>
+                                    <span id="wtHum" class="text-sm font-bold text-primary">--%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- G-Maps Embed Box -->
+            <div class="bg-surface rounded-2xl overflow-hidden shadow-sm border border-outline-variant flex flex-col h-[400px]" data-aos="fade-left" data-aos-delay="200">
+                <div class="bg-primary px-5 py-4 flex items-center gap-2 border-b border-on-secondary/10">
+                    <span class="material-symbols-outlined text-sm text-primary-container">map</span>
+                    <h4 class="text-xs font-bold text-primary-container uppercase tracking-widest">Titik Geospasial</h4>
+                </div>
+                
+                <!-- Google Maps Embed Iframe -->
+                <div class="flex-1 w-full bg-surface-variant relative relative" id="mapContainer">
+                   <div class="absolute inset-0 flex items-center justify-center">
+                       <span class="material-symbols-outlined animate-spin text-primary">refresh</span>
+                   </div>
+                   <iframe id="gmapIframe" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0" class="relative z-10 w-full h-full"></iframe>
+                </div>
+            </div>
+
+        </aside>
+    </div>
+</main>
+
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="js/data.js?v=5"></script>
+<script>
+    AOS.init({ once: true });
+    
+    // Logic: Fetch Param ID and Populate View
+    const urlParams = new URLSearchParams(window.location.search);
+    const rawId = urlParams.get('id');
+    const idParam = rawId ? rawId.trim() : null;
+
+    // Do NOT fallback to ks-1 if an ID was explicitly searched but not found, 
+    // to prevent confusing UX. Only fallback if accessed totally blank for demo purposes.
+    let currentObject = null;
+    if (idParam) {
+        currentObject = pusakaData.find(d => String(d.id).trim() === idParam);
+    } else {
+        // If accessed directly via /detail.html without any ?id query string
+        currentObject = pusakaData.find(d => d.id === 'ks-1');
+    }
+
+    if(currentObject) {
+        document.getElementById('detailNama').textContent = currentObject.nama;
+        document.getElementById('detailWilayah').innerHTML = `<span class="material-symbols-outlined text-sm">location_on</span> ${currentObject.wilayah}`;
+        document.getElementById('detailDeskripsi').innerHTML = currentObject.deskripsi;
+        document.title = `${currentObject.nama} - Pusaka Banten`;
+
+        // Image loading mockup (awaiting user real files)
+        const heroImg = document.getElementById('detailHeroImage');
+        heroImg.src = `assets/detail/${currentObject.id}-hero.jpg`;
+        heroImg.onerror = function() {
+            this.onerror = null;
+            this.src = `https://picsum.photos/seed/${currentObject.id}/1200/600`;
+        };
+
+        // Inject Quick Info
+        document.getElementById('infoTiket').textContent = currentObject.tiket || "Tidak Diketahui";
+        document.getElementById('infoJadwal').textContent = currentObject.jadwal || "Tidak Diketahui";
+        document.getElementById('infoRating').textContent = currentObject.rating || "-";
+        document.getElementById('infoElevasi').textContent = currentObject.elevasi || "-";
+
+        // Inject Google Maps Iframe Dynamically based on exact lat/lng
+        const mapIframe = document.getElementById('gmapIframe');
+        if (currentObject.lat && currentObject.lng) {
+            // Coordinate exact pin
+            mapIframe.src = `https://maps.google.com/maps?q=${currentObject.lat},${currentObject.lng}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+        } else {
+            // Fallback to name search
+            const mapQuery = encodeURIComponent(currentObject.nama + ' ' + currentObject.wilayah);
+            mapIframe.src = `https://maps.google.com/maps?q=${mapQuery}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
+        }
+        
+        // Fetch Real Weather Data via Open-Meteo matching the exact location
+        let lat = currentObject.lat || -6.1200;
+        let lng = currentObject.lng || 106.1502;
+        
+        // Ensure lat lng are numeric values from string representation
+        lat = parseFloat(lat);
+        lng = parseFloat(lng);
+        
+        fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current_weather=true&hourly=relativehumidity_2m&timezone=Asia%2FJakarta`)
+            .then(res => res.json())
+            .then(data => {
+                const temp = data.current_weather.temperature;
+                const timeStr = data.current_weather.time; // "2026-04-17T02:00"
+                const hourIndex = data.hourly.time.indexOf(timeStr);
+                const hum = hourIndex !== -1 ? data.hourly.relativehumidity_2m[hourIndex] : 80; // fallback humidity
+
+                document.getElementById('weatherLoading').classList.add('hidden');
+                document.getElementById('weatherData').classList.remove('hidden');
+
+                document.getElementById('wtTemp').textContent = `${temp}°C`;
+                document.getElementById('wtHum').textContent = `${hum}%`;
+            })
+            .catch(err => {
+                console.error("Weather API error", err);
+                document.getElementById('weatherLoading').innerHTML = '<p class="text-xs text-red-500">Gagal memuat API Cuaca.</p>';
+            });
+
+    } else {
+        document.getElementById('detailNama').textContent = "Situs Tidak Ditemukan";
+    }
+
+</script>
+</body>
+</html>

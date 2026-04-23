@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Panel Admin - Jelajah Sejarah Banten</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="js/tailwind.config.js?v=5"></script>
+    <link href="css/style.css?v=5" rel="stylesheet"/>
+    <script src="js/theme.js?v=5"></script>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container/30">
+
+<!-- Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-primary shadow-lg border-b border-primary-container/30 flex justify-between items-center px-4 md:px-12 py-3 md:py-4 gap-2">
+    <a href="index.html" class="text-xl md:text-2xl font-bold font-headline text-primary-container tracking-widest flex items-center gap-2 hover:opacity-80 transition-opacity z-50">
+        <span class="material-symbols-outlined">admin_panel_settings</span>
+        <span class="hidden sm:block">Panel Admin</span>
+    </a>
+    
+    <div class="flex items-center gap-4 md:gap-6 justify-end flex-1">
+        <button id="themeToggleBtn" title="Mode Siang / Malam" class="text-primary-container hover:scale-110 transition-transform p-1">
+            <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+        <a href="dashboard.html" class="flex items-center gap-2 text-primary-container/80 font-bold text-sm tracking-widest uppercase hover:text-primary-container transition-colors border-l border-primary-container/50 pl-4 md:pl-6">
+            <span class="material-symbols-outlined text-sm">grid_view</span>
+            <span class="hidden sm:inline">Dashboard</span>
+        </a>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main class="pt-32 pb-24 px-6 md:px-12 max-w-7xl mx-auto min-h-screen">
+    <header class="mb-12 border-b border-outline-variant pb-6 flex flex-col md:flex-row justify-between items-end gap-4">
+        <div>
+            <h1 class="text-3xl md:text-5xl font-headline text-primary mb-2 font-bold">Daftar Tinjauan</h1>
+            <p class="text-on-surface-variant font-light text-lg">Kelola artikel sumbangan publik yang menunggu persetujuan Anda.</p>
+        </div>
+        <div class="bg-surface border border-outline-variant rounded-xl px-6 py-3 shadow-md flex items-center gap-3">
+            <span class="material-symbols-outlined text-primary text-3xl">pending_actions</span>
+            <div>
+                <p class="text-xs text-on-surface-variant uppercase tracking-widest font-bold">Menunggu</p>
+                <p class="text-2xl font-bold font-headline text-primary leading-none" id="pendingCount">0</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Articles Grid -->
+    <div id="articlesGrid" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Rendered by JS -->
+    </div>
+
+    <div id="emptyState" class="hidden flex flex-col items-center justify-center py-20 opacity-60">
+        <span class="material-symbols-outlined text-8xl mb-4">task_alt</span>
+        <h2 class="text-2xl font-headline font-bold mb-2">Semua Bersih!</h2>
+        <p>Tidak ada artikel baru yang menunggu persetujuan.</p>
+    </div>
+</main>
+
+<script>
+    function loadPendingArticles() {
+        const pendingArticles = JSON.parse(localStorage.getItem('jsb_pendingArticles')) || [];
+        const grid = document.getElementById('articlesGrid');
+        const emptyState = document.getElementById('emptyState');
+        const count = document.getElementById('pendingCount');
+        
+        count.textContent = pendingArticles.length;
+        grid.innerHTML = '';
+        
+        if (pendingArticles.length === 0) {
+            emptyState.classList.remove('hidden');
+            emptyState.classList.add('flex');
+            return;
+        }
+
+        emptyState.classList.add('hidden');
+        emptyState.classList.remove('flex');
+
+        pendingArticles.forEach((article, index) => {
+            const date = new Date(article.submittedAt).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+            
+            const card = document.createElement('div');
+            card.className = "bg-surface border border-outline-variant rounded-2xl overflow-hidden shadow-lg flex flex-col";
+            
+            // Limit description preview
+            const descPreview = article.deskripsi.replace(/<[^>]*>?/gm, ''); // strip HTML
+            const shortDesc = descPreview.length > 150 ? descPreview.substring(0, 150) + '...' : descPreview;
+
+            card.innerHTML = `
+                <div class="h-48 w-full bg-black/10 relative">
+                    <img src="${article.imageDetail}" class="w-full h-full object-cover" alt="Preview">
+                    <div class="absolute top-4 right-4 bg-primary text-primary-container text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-md">
+                        ${article.kategori || 'Publik'}
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="flex items-center gap-2 text-on-surface-variant text-xs mb-2">
+                        <span class="material-symbols-outlined text-sm">schedule</span> ${date}
+                        <span class="mx-2">|</span>
+                        <span class="material-symbols-outlined text-sm">location_on</span> ${article.wilayah}
+                    </div>
+                    <h3 class="text-2xl font-bold font-headline text-primary mb-3">${article.nama}</h3>
+                    <p class="text-on-surface-variant text-sm mb-4 flex-1">${shortDesc}</p>
+                    
+                    <div class="grid grid-cols-2 gap-4 bg-background border border-outline-variant rounded-xl p-3 mb-6 text-sm">
+                        <div>
+                            <span class="block text-xs text-on-surface-variant mb-1">Tiket</span>
+                            <span class="font-bold truncate">${article.tiket}</span>
+                        </div>
+                        <div>
+                            <span class="block text-xs text-on-surface-variant mb-1">Jadwal</span>
+                            <span class="font-bold truncate">${article.jadwal}</span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 mt-auto">
+                        <button onclick="approveArticle(${index})" class="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-bold tracking-widest uppercase transition-colors flex justify-center items-center gap-2">
+                            <span class="material-symbols-outlined">check_circle</span> Terima
+                        </button>
+                        <button onclick="rejectArticle(${index})" class="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl font-bold tracking-widest uppercase transition-colors flex justify-center items-center gap-2">
+                            <span class="material-symbols-outlined">cancel</span> Tolak
+                        </button>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    function approveArticle(index) {
+        if(!confirm("Anda yakin ingin menyetujui artikel ini untuk tayang di website?")) return;
+
+        let pending = JSON.parse(localStorage.getItem('jsb_pendingArticles')) || [];
+        let approved = JSON.parse(localStorage.getItem('jsb_approvedArticles')) || [];
+        
+        // Remove from pending, add to approved
+        const article = pending.splice(index, 1)[0];
+        article.status = 'approved';
+        approved.push(article);
+        
+        localStorage.setItem('jsb_pendingArticles', JSON.stringify(pending));
+        localStorage.setItem('jsb_approvedArticles', JSON.stringify(approved));
+        
+        loadPendingArticles();
+    }
+
+    function rejectArticle(index) {
+        if(!confirm("Anda yakin ingin menolak dan menghapus artikel ini? Tindakan ini tidak dapat dibatalkan.")) return;
+
+        let pending = JSON.parse(localStorage.getItem('jsb_pendingArticles')) || [];
+        pending.splice(index, 1);
+        
+        localStorage.setItem('jsb_pendingArticles', JSON.stringify(pending));
+        
+        loadPendingArticles();
+    }
+
+    // Initialize
+    loadPendingArticles();
+</script>
+</body>
+</html>

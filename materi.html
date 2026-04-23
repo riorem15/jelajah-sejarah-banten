@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Pusaka Banten - Materi & Scholar</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="js/tailwind.config.js?v=5"></script>
+    <link href="css/style.css?v=5" rel="stylesheet"/>
+    <script src="js/theme.js?v=5"></script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-panel {
+            background-color: var(--surface);
+            border: 1px solid var(--outline-variant);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container/30">
+
+<nav class="fixed top-0 w-full z-50 bg-primary shadow-lg border-b border-primary-container/30 flex justify-between items-center px-4 md:px-12 py-3 md:py-4 gap-2">
+    <a href="index.html" class="text-xl md:text-2xl font-bold font-headline text-primary-container tracking-widest flex items-center gap-2 hover:opacity-80 transition-opacity z-50">
+        <span class="material-symbols-outlined">account_balance</span>
+        <span class="hidden sm:block">Pusaka Banten</span>
+    </a>
+    
+    <div class="flex items-center gap-4 md:gap-6 justify-end flex-1">
+        <button id="themeToggleBtn" title="Mode Siang / Malam" class="text-primary-container hover:scale-110 transition-transform p-1">
+            <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+
+        <a href="kontribusi.html" class="flex items-center gap-2 bg-primary-container text-primary font-bold text-xs tracking-widest uppercase hover:opacity-80 transition-opacity px-3 md:px-4 py-2 rounded-full shadow-md ml-1 md:ml-3">
+            <span class="material-symbols-outlined text-sm">edit_square</span>
+            <span class="hidden sm:inline">Kontribusi</span>
+        </a>
+
+        <a href="dashboard.html" class="flex items-center gap-2 text-primary-container/80 font-bold text-sm tracking-widest uppercase hover:text-primary-container transition-colors border-l border-primary-container/50 pl-4 md:pl-6">
+            <span class="material-symbols-outlined text-sm">grid_view</span>
+            <span class="hidden sm:inline">Dashboard</span>
+        </a>
+    </div>
+</nav>
+
+<main class="pt-32 pb-24 px-6 md:px-12 max-w-[1440px] mx-auto min-h-screen">
+    
+    <!-- Header Section -->
+    <div class="bg-surface rounded-3xl p-8 relative overflow-hidden border border-outline-variant shadow-sm mb-8" data-aos="fade-down">
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-3xl text-primary">school</span>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-extrabold tracking-tight font-headline text-primary">Materi & Scholar</h1>
+                    <p class="text-on-surface-variant text-sm">Temukan jurnal, buku, dan publikasi penelitian seputar Sejarah Banten.</p>
+                </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 mt-2">
+                <span class="text-xs px-2.5 py-1 rounded-full bg-surface-variant border border-outline-variant text-on-surface-variant font-medium">OpenAlex</span>
+                <span class="text-xs px-2.5 py-1 rounded-full bg-surface-variant border border-outline-variant text-on-surface-variant font-medium">Google Scholar</span>
+                <span class="text-xs px-2.5 py-1 rounded-full bg-surface-variant border border-outline-variant text-on-surface-variant font-medium">Scopus</span>
+            </div>
+        </div>
+        <div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px] -mr-20 -mt-20 pointer-events-none"></div>
+    </div>
+
+    <!-- Search Box Section -->
+    <div class="bg-surface rounded-2xl border border-outline-variant shadow-sm p-5 space-y-4 mb-8" data-aos="fade-up" data-aos-delay="100">
+        <div class="flex flex-col md:flex-row gap-3">
+            <div class="flex-1 relative">
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                <input type="text" id="scholarSearchInput" placeholder="Cari judul jurnal atau buku (misal: 'Sejarah Banten', 'Surosowan')..." class="w-full pl-12 pr-4 py-3.5 rounded-xl bg-background border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-sm transition-all text-on-surface" />
+            </div>
+            <button id="toggleFilterBtn" class="px-4 py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all border bg-surface border-outline-variant hover:bg-surface-variant text-primary">
+                <span class="material-symbols-outlined text-sm">tune</span> Filter
+            </button>
+            <button id="searchBtn" class="px-7 py-3.5 rounded-xl bg-primary text-primary-container font-bold text-sm hover:scale-105 transition-all shadow-md flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-sm" id="searchIcon">search</span> Cari
+            </button>
+        </div>
+        
+        <!-- Filters (Hidden by default) -->
+        <div id="filterContainer" class="hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-outline-variant/50">
+            <div class="space-y-1">
+                <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Tahun Dari</label>
+                <input type="number" id="yearFrom" placeholder="2010" class="w-full px-3 py-2 rounded-lg bg-background border border-outline-variant focus:ring-2 focus:ring-primary outline-none text-sm text-on-surface" />
+            </div>
+            <div class="space-y-1">
+                <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Tahun Sampai</label>
+                <input type="number" id="yearTo" placeholder="2024" class="w-full px-3 py-2 rounded-lg bg-background border border-outline-variant focus:ring-2 focus:ring-primary outline-none text-sm text-on-surface" />
+            </div>
+            <div class="space-y-1">
+                <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Hanya Open Access</label>
+                <select id="openAccess" class="w-full px-3 py-2 rounded-lg bg-background border border-outline-variant focus:ring-2 focus:ring-primary outline-none text-sm text-on-surface">
+                    <option value="all">Semua Akses</option>
+                    <option value="true">Hanya Open Access (Gratis)</option>
+                </select>
+            </div>
+            <div class="space-y-1">
+                <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Urutkan</label>
+                <select id="sortBy" class="w-full px-3 py-2 rounded-lg bg-background border border-outline-variant focus:ring-2 focus:ring-primary outline-none text-sm text-on-surface">
+                    <option value="relevance_score">Paling Relevan</option>
+                    <option value="cited_by_count">Paling Banyak Disitasi</option>
+                    <option value="publication_year">Terbaru</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Meta -->
+    <p id="searchMeta" class="text-xs text-on-surface-variant font-bold mb-4 hidden"></p>
+
+    <!-- Popular Suggestions -->
+    <div id="popularSuggestions" class="space-y-5" data-aos="fade-up" data-aos-delay="200">
+        <p class="text-sm font-bold text-on-surface-variant flex items-center gap-2">
+            <span class="material-symbols-outlined text-lg">lightbulb</span> Pencarian Populer
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            <button class="suggestion-btn bg-surface rounded-xl px-4 py-3 text-left border border-outline-variant hover:border-primary hover:bg-primary/5 transition-all group">
+                <p class="text-sm font-bold group-hover:text-primary transition-colors text-on-surface">Kesultanan Banten</p>
+                <p class="text-[10px] text-on-surface-variant mt-0.5">Jurnal & Buku</p>
+            </button>
+            <button class="suggestion-btn bg-surface rounded-xl px-4 py-3 text-left border border-outline-variant hover:border-primary hover:bg-primary/5 transition-all group">
+                <p class="text-sm font-bold group-hover:text-primary transition-colors text-on-surface">Sultan Ageng Tirtayasa</p>
+                <p class="text-[10px] text-on-surface-variant mt-0.5">Tokoh Sejarah</p>
+            </button>
+            <button class="suggestion-btn bg-surface rounded-xl px-4 py-3 text-left border border-outline-variant hover:border-primary hover:bg-primary/5 transition-all group">
+                <p class="text-sm font-bold group-hover:text-primary transition-colors text-on-surface">Keraton Surosowan</p>
+                <p class="text-[10px] text-on-surface-variant mt-0.5">Arkeologi</p>
+            </button>
+            <button class="suggestion-btn bg-surface rounded-xl px-4 py-3 text-left border border-outline-variant hover:border-primary hover:bg-primary/5 transition-all group">
+                <p class="text-sm font-bold group-hover:text-primary transition-colors text-on-surface">Geger Cilegon</p>
+                <p class="text-[10px] text-on-surface-variant mt-0.5">Peristiwa Banten</p>
+            </button>
+        </div>
+    </div>
+
+    <!-- Error Message -->
+    <div id="errorMessage" class="hidden items-start gap-3 px-5 py-4 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-600 mb-6">
+        <span class="material-symbols-outlined w-5 h-5 mt-0.5 flex-shrink-0">error</span>
+        <p class="text-sm" id="errorText">Terjadi kesalahan.</p>
+    </div>
+
+    <!-- Results Container -->
+    <div id="resultsContainer" class="space-y-4 mt-8"></div>
+
+</main>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ once: true });
+
+    // UI Elements
+    const searchInput = document.getElementById('scholarSearchInput');
+    const searchBtn = document.getElementById('searchBtn');
+    const searchIcon = document.getElementById('searchIcon');
+    const toggleFilterBtn = document.getElementById('toggleFilterBtn');
+    const filterContainer = document.getElementById('filterContainer');
+    const popularSuggestions = document.getElementById('popularSuggestions');
+    const resultsContainer = document.getElementById('resultsContainer');
+    const searchMeta = document.getElementById('searchMeta');
+    const errorMessage = document.getElementById('errorMessage');
+    const errorText = document.getElementById('errorText');
+
+    // Filter Inputs
+    const yearFromInput = document.getElementById('yearFrom');
+    const yearToInput = document.getElementById('yearTo');
+    const openAccessInput = document.getElementById('openAccess');
+    const sortByInput = document.getElementById('sortBy');
+
+    toggleFilterBtn.addEventListener('click', () => {
+        filterContainer.classList.toggle('hidden');
+        if(!filterContainer.classList.contains('hidden')) {
+            toggleFilterBtn.classList.add('bg-primary/10', 'border-primary/30');
+            toggleFilterBtn.classList.remove('bg-surface');
+        } else {
+            toggleFilterBtn.classList.remove('bg-primary/10', 'border-primary/30');
+            toggleFilterBtn.classList.add('bg-surface');
+        }
+    });
+
+    document.querySelectorAll('.suggestion-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            searchInput.value = btn.querySelector('p').textContent;
+            performSearch();
+        });
+    });
+
+    searchInput.addEventListener('keypress', (e) => {
+        if(e.key === 'Enter') performSearch();
+    });
+
+    searchBtn.addEventListener('click', performSearch);
+
+    function reconstructAbstract(inv) {
+        if (!inv) return undefined;
+        let pairs = [];
+        for (const [word, positions] of Object.entries(inv)) {
+            for (const pos of positions) pairs.push([word, pos]);
+        }
+        pairs.sort((a, b) => a[1] - b[1]);
+        return pairs.map(p => p[0]).join(" ");
+    }
+
+    async function performSearch() {
+        const query = searchInput.value.trim();
+        if(!query) return;
+
+        // UI Loading State
+        popularSuggestions.classList.add('hidden');
+        errorMessage.classList.add('hidden');
+        resultsContainer.innerHTML = '';
+        searchMeta.classList.add('hidden');
+        searchBtn.disabled = true;
+        searchIcon.textContent = 'hourglass_empty';
+        searchIcon.classList.add('animate-spin');
+
+        // Skeleton loading
+        for(let i=0; i<3; i++) {
+            resultsContainer.innerHTML += `
+                <div class="bg-surface rounded-2xl p-5 animate-pulse border border-outline-variant space-y-3">
+                    <div class="h-4 bg-surface-variant rounded-full w-24"></div>
+                    <div class="h-6 bg-surface-variant rounded-full w-3/4"></div>
+                    <div class="h-4 bg-surface-variant rounded-full w-1/2"></div>
+                </div>
+            `;
+        }
+
+        const t0 = Date.now();
+
+        try {
+            const params = new URLSearchParams();
+            
+            let filterStr = `default.search:${query}`;
+            if(yearFromInput.value) filterStr += `,publication_year:>${parseInt(yearFromInput.value) - 1}`;
+            if(yearToInput.value) filterStr += `,publication_year:<${parseInt(yearToInput.value) + 1}`;
+            if(openAccessInput.value === "true") filterStr += `,is_oa:true`;
+
+            params.set("filter", filterStr);
+            params.set("sort", `${sortByInput.value}:desc`);
+            params.set("per-page", "15");
+            params.set("select", "id,title,doi,publication_year,cited_by_count,open_access,authorships,primary_location,concepts,abstract_inverted_index,type");
+            params.set("mailto", "user@jelajahbanten.com");
+
+            const url = `https://api.openalex.org/works?${params.toString()}`;
+            const res = await fetch(url);
+            if(!res.ok) throw new Error("Gagal menghubungi server OpenAlex");
+            
+            const data = await res.json();
+            const results = data.results || [];
+            
+            resultsContainer.innerHTML = '';
+            searchMeta.classList.remove('hidden');
+            searchMeta.innerHTML = `Menampilkan <span class="text-primary">${results.length}</span> dari <span class="text-primary">${data.meta?.count?.toLocaleString() || results.length}</span> hasil pencarian — ${((Date.now() - t0)/1000).toFixed(2)}s`;
+
+            if(results.length === 0) {
+                resultsContainer.innerHTML = `<div class="text-center py-10 text-on-surface-variant italic">Tidak ada hasil ditemukan. Silakan coba kata kunci lain.</div>`;
+            } else {
+                results.forEach((work, idx) => {
+                    renderPaperCard(work, idx);
+                });
+            }
+
+        } catch (err) {
+            resultsContainer.innerHTML = '';
+            errorMessage.classList.remove('hidden');
+            errorMessage.style.display = 'flex';
+            errorText.textContent = err.message;
+        } finally {
+            searchBtn.disabled = false;
+            searchIcon.textContent = 'search';
+            searchIcon.classList.remove('animate-spin');
+        }
+    }
+
+    function renderPaperCard(work, idx) {
+        const id = work.id || Math.random().toString();
+        const title = work.title || "Untitled";
+        const doiUrl = work.doi ? `https://doi.org/${work.doi.replace("https://doi.org/", "")}` : null;
+        const year = work.publication_year || "";
+        const citations = work.cited_by_count || 0;
+        const isOa = work.open_access?.is_oa || false;
+        const pdfUrl = work.open_access?.oa_url;
+        const authors = (work.authorships || []).slice(0, 5).map(a => a.author?.display_name).filter(Boolean).join("; ");
+        const journal = work.primary_location?.source?.display_name || "";
+        const abstract = reconstructAbstract(work.abstract_inverted_index);
+        const type = work.type === 'journal-article' ? 'Jurnal' : work.type === 'book' ? 'Buku' : work.type || 'Artikel';
+        const topics = (work.concepts || []).filter(c => c.score > 0.4).slice(0, 3).map(c => c.display_name);
+
+        const googleScholarUrl = `https://scholar.google.com/scholar?q=${encodeURIComponent(title)}`;
+
+        let linksHtml = '';
+        if (pdfUrl) {
+            linksHtml += `<a href="${pdfUrl}" target="_blank" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-500/10 text-green-600 text-[11px] font-bold hover:bg-green-500/20 transition-all"><span class="material-symbols-outlined text-[14px]">download</span> Unduh PDF</a>`;
+        } else if (doiUrl) {
+            linksHtml += `<a href="${doiUrl}" target="_blank" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-primary-container text-[11px] font-bold hover:opacity-90 transition-all"><span class="material-symbols-outlined text-[14px]">open_in_new</span> Kunjungi Jurnal</a>`;
+        } else {
+            linksHtml += `<a href="${googleScholarUrl}" target="_blank" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface border border-outline-variant text-primary text-[11px] font-bold hover:bg-surface-variant transition-all"><span class="material-symbols-outlined text-[14px]">school</span> Google Scholar</a>`;
+        }
+
+        let topicsHtml = '';
+        if(topics.length > 0) {
+            topicsHtml = `<div class="flex flex-wrap gap-1.5 pt-1 mt-2">` + 
+                topics.map(t => `<span class="text-[10px] px-2 py-0.5 rounded-full bg-surface-variant border border-outline-variant text-on-surface-variant font-medium">${t}</span>`).join('') +
+            `</div>`;
+        }
+
+        const card = `
+            <div class="bg-surface rounded-2xl border border-outline-variant hover:border-primary/40 shadow-sm hover:shadow-md transition-all p-5 flex flex-col md:flex-row gap-4" data-aos="fade-up" data-aos-delay="${(idx%10)*50}">
+                <div class="flex-1 min-w-0">
+                    <div class="flex flex-wrap items-center gap-1.5 mb-2">
+                        <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-primary/10 text-primary">${type}</span>
+                        ${isOa ? '<span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-green-500/10 text-green-600">🔓 Open Access</span>' : ''}
+                        ${year ? `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-surface-variant text-on-surface-variant">${year}</span>` : ''}
+                    </div>
+                    <h3 class="font-extrabold text-sm md:text-base leading-snug text-primary mb-1 pr-4">${title}</h3>
+                    ${authors ? `<p class="text-xs text-on-surface-variant mb-1 flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">group</span> ${authors}</p>` : ''}
+                    ${journal ? `<p class="text-xs text-on-surface-variant/80 italic flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">auto_stories</span> ${journal}</p>` : ''}
+                    
+                    ${topicsHtml}
+
+                    <div class="flex flex-wrap items-center gap-2 pt-4 border-t border-outline-variant/30 mt-3">
+                        ${linksHtml}
+                        <a href="${googleScholarUrl}" target="_blank" class="ml-auto text-[11px] font-bold text-primary hover:underline flex items-center gap-1">Cari di Scholar <span class="material-symbols-outlined text-[12px]">chevron_right</span></a>
+                    </div>
+                </div>
+                ${citations > 0 ? `
+                <div class="flex-shrink-0 text-center px-3 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 shadow-sm h-fit hidden sm:block">
+                    <p class="text-xl font-extrabold text-amber-600">${citations > 999 ? (citations/1000).toFixed(1)+'k' : citations}</p>
+                    <p class="text-[9px] text-amber-600/80 font-bold uppercase tracking-widest mt-0.5">Sitasi</p>
+                </div>
+                ` : ''}
+            </div>
+        `;
+        resultsContainer.innerHTML += card;
+    }
+
+</script>
+</body>
+</html>

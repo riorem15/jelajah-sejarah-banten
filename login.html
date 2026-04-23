@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Gerbang Jelajah Sejarah Banten</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="js/tailwind.config.js"></script>
+    <link href="css/style.css" rel="stylesheet"/>
+</head>
+<body class="bg-background text-on-surface font-body antialiased selection:bg-primary-container/30">
+    <main class="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#2c1c1c]">
+        
+        <!-- Background Foto Menara Agung Banten -->
+        <div class="absolute inset-0 z-0">
+            <!-- Menampilkan foto menara yang di-upload oleh user -->
+            <img src="assets/dashboard/dashboard-Login.jpg" alt="Menara Agung Banten" onerror="this.style.display='none';" class="w-full h-full object-cover mix-blend-luminosity parallax-bg opacity-80" data-speed="0.2"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/50 to-transparent"></div>
+        </div>
+
+        <section class="relative z-10 w-full max-w-md px-6 py-12 md:px-0" data-aos="fade-up" data-aos-duration="1000">
+            <div class="glass-effect rounded-2xl p-8 md:p-10 shadow-2xl border border-primary-container/40 backdrop-blur-xl">
+                
+                <div class="text-center mb-8">
+                    <span class="block font-headline text-5xl md:text-6xl text-primary-container mb-2 tracking-tight drop-shadow-xl font-bold">
+                        Pusaka Banten
+                    </span>
+                    <p class="mt-2 text-on-primary-container font-label text-xs tracking-[0.2em] uppercase drop-shadow-md font-bold">
+                        Jelajah Cagar Budaya
+                    </p>
+                </div>
+
+                <form id="loginForm" class="space-y-6">
+                    <div class="space-y-4">
+                        <div>
+                            <input type="text" id="username" required placeholder="Masukkan Nama Anda..." class="w-full bg-background/80 border border-outline-variant/60 rounded-xl px-5 py-4 text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-on-surface-variant font-medium shadow-inner shadow-black/5">
+                        </div>
+                        <div>
+                            <input type="tel" id="userphone" placeholder="Nomor Telepon / WhatsApp..." class="w-full bg-background/80 border border-outline-variant/60 rounded-xl px-5 py-4 text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-on-surface-variant font-medium shadow-inner shadow-black/5">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-primary hover:bg-[#4a0810] text-primary-container font-bold py-4 rounded-xl transition-all duration-300 tracking-widest uppercase text-xs flex items-center justify-center gap-2 group shadow-lg">
+                        Eksplorasi Wilayah
+                        <span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </button>
+                </form>
+
+            </div>
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+        const loginForm = document.getElementById('loginForm');
+        if(loginForm) {
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const usernameInput = document.getElementById('username').value;
+                const userphoneInput = document.getElementById('userphone').value;
+                
+                if(usernameInput.trim() !== '') {
+                    localStorage.setItem('jsb_username', usernameInput);
+                }
+                if(userphoneInput.trim() !== '') {
+                    localStorage.setItem('jsb_phone', userphoneInput);
+                }
+                window.location.href = 'dashboard.html';
+            });
+        }
+    </script>
+</body>
+</html>

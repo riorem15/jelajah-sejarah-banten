@@ -1,0 +1,124 @@
+/* Jelajah Sejarah Banten - V2 Design System */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0');
+
+/* CSS Variables for Light / Dark Mode System */
+:root {
+  --color-primary: 94 11 21; /* #5E0B15 */
+  --color-on-primary: 251 249 244; /* #FBF9F4 */
+  --color-primary-container: 212 175 55; /* #D4AF37 */
+  --color-on-primary-container: 94 11 21; /* #5E0B15 */
+  --color-background: 251 249 244; /* #FBF9F4 */
+  --color-on-background: 44 28 28; /* #2c1c1c */
+  --color-surface: 251 249 244; /* #FBF9F4 */
+  --color-surface-variant: 240 235 216; /* #f0ebd8 */
+  --color-on-surface: 44 28 28; /* #2c1c1c */
+  --color-on-surface-variant: 90 76 76; /* #5A4C4C */
+  --color-outline: 212 175 55; /* #D4AF37 */
+  --color-outline-variant: 228 204 168; /* #E4CCA8 */
+  --color-secondary: 62 39 35; /* #3EFF23 */
+  --color-on-secondary: 251 249 244; /* #FBF9F4 */
+}
+
+/* Malam Mode */
+html.dark {
+  --color-primary: 130 15 28; /* Lighter Maroon for visibility */
+  --color-on-primary: 21 15 15; 
+  --color-primary-container: 200 160 40; /* Darker Gold */
+  --color-on-primary-container: 251 249 244; /* #FBF9F4 */
+  --color-background: 21 15 15; /* Pitch Dark Maroon */
+  --color-on-background: 251 249 244; /* White */
+  --color-surface: 35 20 20; /* Dark Maroon Cards */
+  --color-surface-variant: 55 35 35; /* Divider / Secondary BG */
+  --color-on-surface: 251 249 244; /* White text on cards */
+  --color-on-surface-variant: 210 195 195; /* Light faded text */
+  --color-outline: 140 106 29; 
+  --color-outline-variant: 84 63 17;
+  --color-secondary: 42 20 20;
+  --color-on-secondary: 251 249 244;
+}
+
+/* Base Styles */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Material Symbols */
+.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined', sans-serif;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Gradients */
+.hero-gradient {
+    background: linear-gradient(to bottom, rgba(94, 11, 21, 0.4) 0%, rgba(44, 28, 28, 0.9) 100%);
+}
+
+.cta-gold {
+    background: linear-gradient(45deg, #D4AF37 0%, #E4CCA8 100%);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+    color: #5E0B15; /* Contrast color */
+}
+
+.cta-gold:hover {
+    background: linear-gradient(45deg, #E4CCA8 0%, #D4AF37 100%);
+}
+
+.glass-effect {
+    background: rgba(251, 249, 244, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.warm-filter {
+    filter: sepia(0.2) contrast(1.1) brightness(0.9);
+    transition: filter 0.3s ease;
+}
+
+.warm-filter:hover {
+    filter: sepia(0) contrast(1.1) brightness(1);
+    transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+    animation: fade-in 0.8s ease-out forwards;
+}
+
+/* Skeleton Loader */
+@keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+}
+
+.skeleton {
+    background: rgb(var(--color-surface-variant));
+    background-image: linear-gradient(to right, rgb(var(--color-surface-variant)) 0%, rgba(var(--color-surface-variant), 0.5) 20%, rgb(var(--color-surface-variant)) 40%, rgb(var(--color-surface-variant)) 100%);
+    background-repeat: no-repeat;
+    background-size: 1000px 100%; 
+    animation: shimmer 2s linear infinite forwards;
+    border-radius: 4px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: rgb(var(--color-background));
+}
+::-webkit-scrollbar-thumb {
+    background: rgb(var(--color-primary-container));
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--color-primary));
+}

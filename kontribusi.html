@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Pusaka Banten - Tulis Artikel</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="js/tailwind.config.js?v=5"></script>
+    <link href="css/style.css?v=5" rel="stylesheet"/>
+    <script src="js/theme.js?v=5"></script>
+    <style>
+        .file-preview {
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container/30">
+
+<!-- Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-primary shadow-lg border-b border-primary-container/30 flex justify-between items-center px-4 md:px-12 py-3 md:py-4 gap-2">
+    <a href="index.html" class="text-xl md:text-2xl font-bold font-headline text-primary-container tracking-widest flex items-center gap-2 hover:opacity-80 transition-opacity z-50">
+        <span class="material-symbols-outlined">account_balance</span>
+        <span class="hidden sm:block">Pusaka Banten</span>
+    </a>
+    
+    <div class="flex items-center gap-4 md:gap-6 justify-end flex-1">
+        <button id="themeToggleBtn" title="Mode Siang / Malam" class="text-primary-container hover:scale-110 transition-transform p-1">
+            <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+        <a href="dashboard.html" class="flex items-center gap-2 text-primary-container/80 font-bold text-sm tracking-widest uppercase hover:text-primary-container transition-colors border-l border-primary-container/50 pl-4 md:pl-6">
+            <span class="material-symbols-outlined text-sm">grid_view</span>
+            <span class="hidden sm:inline">Dashboard</span>
+        </a>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main class="pt-32 pb-24 px-6 md:px-12 max-w-4xl mx-auto min-h-screen">
+    <header class="mb-12 text-center" data-aos="fade-down">
+        <h1 class="text-3xl md:text-5xl font-headline text-primary mb-4 font-bold">Bagikan Sejarah Banten</h1>
+        <p class="text-on-surface-variant font-light text-lg max-w-2xl mx-auto">Kontribusikan pengetahuan Anda dengan mengunggah cagar budaya atau wisata alam yang belum tercatat di database kami.</p>
+    </header>
+
+    <section class="bg-surface border border-outline-variant rounded-3xl p-6 md:p-10 shadow-xl" data-aos="fade-up" data-aos-delay="100">
+        <form id="kontribusiForm" class="space-y-8">
+            
+            <!-- Informasi Dasar -->
+            <div class="space-y-4">
+                <h2 class="text-xl font-bold font-headline text-primary border-b border-outline-variant pb-2 flex items-center gap-2">
+                    <span class="material-symbols-outlined">info</span> Informasi Objek
+                </h2>
+                
+                <div>
+                    <label class="block text-sm font-bold tracking-widest uppercase text-primary mb-2">Judul Objek *</label>
+                    <input type="text" id="judul" required class="w-full px-4 py-3 bg-background border border-outline-variant rounded-xl text-on-surface focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all outline-none" placeholder="Contoh: Candi Cikande">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-bold tracking-widest uppercase text-primary mb-2">Kategori *</label>
+                        <select id="kategori" required class="w-full px-4 py-3 bg-background border border-outline-variant rounded-xl text-on-surface focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all outline-none">
+                            <option value="Cagar Budaya">Cagar Budaya</option>
+                            <option value="Wisata Alam">Wisata Alam</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold tracking-widest uppercase text-primary mb-2">Wilayah *</label>
+                        <select id="wilayah" required class="w-full px-4 py-3 bg-background border border-outline-variant rounded-xl text-on-surface focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all outline-none">
+                            <option value="Kota Serang">Kota Serang</option>
+                            <option value="Kabupaten Serang">Kabupaten Serang</option>
+                            <option value="Kota Cilegon">Kota Cilegon</option>
+                            <option value="Kabupaten Pandeglang">Kabupaten Pandeglang</option>
+                            <option value="Kabupaten Lebak">Kabupaten Lebak</option>
+                            <option value="Kota Tangerang">Kota Tangerang</option>
+                            <option value="Kabupaten Tangerang">Kabupaten Tangerang</option>
+                            <option value="Kota Tangerang Selatan">Kota Tangerang Selatan</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upload Foto -->
+            <div class="space-y-4">
+                <h2 class="text-xl font-bold font-headline text-primary border-b border-outline-variant pb-2 flex items-center gap-2 mt-8">
+                    <span class="material-symbols-outlined">image</span> Bukti Visual
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Foto Etalase -->
+                    <div>
+                        <label class="block text-sm font-bold tracking-widest uppercase text-primary mb-2">Foto Etalase (Kotak) *</label>
+                        <div class="relative w-full h-48 border-2 border-dashed border-outline-variant rounded-2xl flex flex-col items-center justify-center bg-background hover:border-primary-container transition-colors cursor-pointer overflow-hidden group" onclick="document.getElementById('foto_etalase').click()">
+                            <div id="preview_etalase" class="absolute inset-0 file-preview hidden z-10"></div>
+                            <div class="absolute inset-0 bg-black/40 hidden z-20 group-hover:flex items-center justify-center" id="overlay_etalase">
+                                <span class="text-white font-bold text-sm bg-primary/80 px-4 py-2 rounded-full">Ganti Foto</span>
+                            </div>
+                            <span class="material-symbols-outlined text-4xl text-outline-variant mb-2 z-0">add_photo_alternate</span>
+                            <span class="text-xs text-on-surface-variant text-center px-4 z-0">Klik untuk unggah foto (JPG/PNG)</span>
+                            <input type="file" id="foto_etalase" accept="image/*" class="hidden" required onchange="previewImage(this, 'preview_etalase')">
+                        </div>
+                    </div>
+
+                    <!-- Foto Detail -->
+                    <div>
+                        <label class="block text-sm font-bold tracking-widest uppercase text-primary mb-2">Foto Header (Lebar) *</label>
+                        <div class="relative w-full h-48 border-2 border-dashed border-outline-variant rounded-2xl flex flex-col items-center justify-center bg-background hover:border-primary-container transition-colors cursor-pointer overflow-hidden group" onclick="document.getElementById('foto_detail').click()">
+                            <div id="preview_detail" class="absolute inset-0 file-preview hidden z-10"></div>
+                            <div class="absolute inset-0 bg-black/40 hidden z-20 group-hover:flex items-center justify-center" id="overlay_detail">
+                                <span class="text-white font-bold text-sm bg-primary/80 px-4 py-2 rounded-full">Ganti Foto</span>
+                            </div>
+                            <span class="material-symbols-outlined text-4xl text-outline-variant mb-2 z-0">panorama</span>
+                            <span class="text-xs text-on-surface-variant text-center px-4 z-0">Klik untuk unggah foto (JPG/PNG)</span>
+                            <input type="file" id="foto_detail" accept="image/*" class="hidden" required onchange="previewImage(this, 'preview_detail')">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detail Informasi -->
+            <div class="space-y-4">
+                <h2 class="text-xl font-bold font-headline text-primary border-b border-outline-variant pb-2 flex items-center gap-2 mt-8">
+                    <span class="material-symbols-outlined">description</span> Rincian Sejarah & Kunjungan
+                </h2>
+                
+                <div>
+                    <label class="block text-sm font-bold tracking-widest uppercase text-primary mb-2">Sejarah & Narasi (Min. 50 kata) *</label>
+                    <textarea id="deskripsi" required rows="6" class="w-full px-4 py-3 bg-background border border-outline-variant rounded-xl text-on-surface focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 transition-all outline-none resize-none" placeholder="Ceritakan sejarah dan keunikan objek ini..."></textarea>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-bold tracking-widest uppercase text-primary mb-2">Harga Tiket *</label>
+                        <input type="text" id="tiket" required class="w-full px-4 py-3 bg-background border border-outline-variant rounded-xl text-on-surface focus:border-primary-container transition-all outline-none" placeholder="Contoh: Rp 10.000 / Gratis">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold tracking-widest uppercase text-primary mb-2">Waktu Operasional *</label>
+                        <input type="text" id="jadwal" required class="w-full px-4 py-3 bg-background border border-outline-variant rounded-xl text-on-surface focus:border-primary-container transition-all outline-none" placeholder="Contoh: Setiap Hari (08:00 - 17:00)">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-bold tracking-widest uppercase text-primary mb-2">Latitude (Peta) *</label>
+                        <input type="text" id="lat" required class="w-full px-4 py-3 bg-background border border-outline-variant rounded-xl text-on-surface focus:border-primary-container transition-all outline-none" placeholder="Contoh: -6.1200">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold tracking-widest uppercase text-primary mb-2">Longitude (Peta) *</label>
+                        <input type="text" id="lng" required class="w-full px-4 py-3 bg-background border border-outline-variant rounded-xl text-on-surface focus:border-primary-container transition-all outline-none" placeholder="Contoh: 106.1502">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pesan Sukses / Error -->
+            <div id="statusMessage" class="hidden p-4 rounded-xl text-sm font-bold text-center border"></div>
+
+            <div class="pt-6">
+                <button type="submit" id="submitBtn" class="w-full bg-primary-container text-primary font-bold tracking-widest uppercase py-4 rounded-full hover:shadow-lg hover:scale-[1.02] transition-all flex justify-center items-center gap-2">
+                    <span class="material-symbols-outlined">send</span> Kirim Artikel
+                </button>
+            </div>
+        </form>
+    </section>
+</main>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ once: true });
+
+    // Function to preview image and read as base64
+    function previewImage(input, previewId) {
+        const preview = document.getElementById(previewId);
+        const overlay = document.getElementById(previewId.replace('preview_', 'overlay_'));
+        
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                preview.style.backgroundImage = `url(${e.target.result})`;
+                preview.classList.remove('hidden');
+                
+                // Store base64 data directly to the input element for later retrieval
+                input.setAttribute('data-base64', e.target.result);
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    // Handle form submission
+    document.getElementById('kontribusiForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const submitBtn = document.getElementById('submitBtn');
+        const statusMessage = document.getElementById('statusMessage');
+        
+        submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> Memproses...';
+        submitBtn.disabled = true;
+
+        try {
+            // Get base64 images
+            const etalaseBase64 = document.getElementById('foto_etalase').getAttribute('data-base64');
+            const detailBase64 = document.getElementById('foto_detail').getAttribute('data-base64');
+
+            if(!etalaseBase64 || !detailBase64) {
+                throw new Error("Mohon unggah kedua foto terlebih dahulu.");
+            }
+
+            // Create article object
+            const article = {
+                id: 'pub-' + Date.now(), // Generate unique ID
+                nama: document.getElementById('judul').value,
+                wilayah: document.getElementById('wilayah').value,
+                kategori: document.getElementById('kategori').value, // Custom tag
+                deskripsi: `<strong>Kategori: ${document.getElementById('kategori').value}</strong><br><br>` + document.getElementById('deskripsi').value.replace(/\n/g, '<br>'),
+                tiket: document.getElementById('tiket').value,
+                jadwal: document.getElementById('jadwal').value,
+                lat: document.getElementById('lat').value,
+                lng: document.getElementById('lng').value,
+                rating: "Menunggu Ulasan",
+                elevasi: "-",
+                
+                // Base64 images to bypass local folder requirement
+                imageEtalase: etalaseBase64,
+                imageDetail: detailBase64,
+                
+                // Meta info
+                submittedAt: new Date().toISOString(),
+                status: 'pending' // pending | approved | rejected
+            };
+
+            // Save to localStorage
+            let pendingArticles = JSON.parse(localStorage.getItem('jsb_pendingArticles')) || [];
+            pendingArticles.push(article);
+            localStorage.setItem('jsb_pendingArticles', JSON.stringify(pendingArticles));
+
+            // Show success
+            statusMessage.className = 'p-4 rounded-xl text-sm font-bold text-center border bg-green-500/20 text-green-500 border-green-500/50 block';
+            statusMessage.innerHTML = 'Berhasil! Artikel Anda telah dikirim dan sedang <strong>menunggu persetujuan Admin</strong>.';
+            
+            // Reset form
+            this.reset();
+            document.getElementById('preview_etalase').classList.add('hidden');
+            document.getElementById('preview_detail').classList.add('hidden');
+            
+            setTimeout(() => {
+                submitBtn.innerHTML = '<span class="material-symbols-outlined">send</span> Kirim Artikel Baru';
+                submitBtn.disabled = false;
+            }, 2000);
+
+        } catch (error) {
+            statusMessage.className = 'p-4 rounded-xl text-sm font-bold text-center border bg-red-500/20 text-red-500 border-red-500/50 block';
+            statusMessage.textContent = error.message || 'Terjadi kesalahan sistem.';
+            
+            submitBtn.innerHTML = '<span class="material-symbols-outlined">send</span> Coba Lagi';
+            submitBtn.disabled = false;
+        }
+    });
+
+</script>
+</body>
+</html>

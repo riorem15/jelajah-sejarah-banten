@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Etalase Cagar Budaya</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="js/tailwind.config.js?v=5"></script>
+    <link href="css/style.css?v=5" rel="stylesheet"/>
+    <script src="js/theme.js?v=5"></script>
+</head>
+<body class="bg-background text-on-surface font-body leading-relaxed selection:bg-primary-container/30">
+
+<nav class="fixed top-0 w-full z-50 bg-primary shadow-lg border-b border-primary-container/30 flex justify-between items-center px-4 md:px-12 py-3 md:py-4 gap-2">
+    <div class="text-xl md:text-2xl font-bold font-headline text-primary-container tracking-widest flex items-center gap-2 z-50">
+        <span class="material-symbols-outlined">account_balance</span>
+        <span class="hidden sm:block">Pusaka Banten</span>
+    </div>
+    
+    <div class="flex items-center gap-2 md:gap-6 justify-end flex-1">
+        <button id="themeToggleBtn" title="Mode Siang / Malam" class="text-primary-container hover:scale-110 transition-transform p-1">
+            <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+
+        <a href="kontribusi.html" class="flex items-center gap-2 bg-primary-container text-primary font-bold text-xs tracking-widest uppercase hover:opacity-80 transition-opacity px-3 md:px-4 py-2 rounded-full shadow-md ml-1 md:ml-3">
+            <span class="material-symbols-outlined text-sm">edit_square</span>
+            <span class="hidden sm:inline">Kontribusi</span>
+        </a>
+
+        <div class="flex relative group justify-end">
+            <span class="material-symbols-outlined text-sm absolute left-3 top-1/2 -translate-y-1/2 text-primary pointer-events-none z-10">search</span>
+            <input type="text" id="internalSearchInput" placeholder="Cari situs..." class="pl-9 pr-3 py-2 bg-surface text-primary border border-outline-variant/60 focus:border-primary-container outline-none transition-all w-10 focus:w-40 sm:w-48 md:w-64 font-body text-sm rounded-full sm:placeholder:text-primary/70 placeholder:text-transparent focus:placeholder:text-primary/70 shadow-inner cursor-pointer focus:cursor-text">
+        </div>
+        <a href="dashboard.html" class="flex items-center gap-2 text-primary-container/80 font-bold text-sm tracking-widest uppercase hover:text-primary-container transition-colors border-l border-primary-container/50 pl-3 md:pl-6">
+            <span class="material-symbols-outlined text-sm">grid_view</span>
+            <span class="hidden sm:inline">Dashboard</span>
+        </a>
+    </div>
+</nav>
+
+<main class="pt-32 pb-24 px-6 md:px-12 max-w-[1440px] mx-auto min-h-screen">
+    <header class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6" data-aos="fade-down">
+        <div>
+            <h1 id="pageTitle" class="text-4xl md:text-5xl font-headline text-primary mb-2 font-bold">Semua Wilayah</h1>
+            <p id="pageSubtitle" class="text-on-surface-variant font-light text-lg">Menampilkan cagar budaya yang tersedia dalam database kami.</p>
+        </div>
+        <div class="bg-primary-container text-primary px-4 py-2 rounded-xl text-sm font-bold uppercase tracking-widest shadow-sm">
+            <span id="resultCount">0</span> Ditemukan
+        </div>
+    </header>
+
+    <section class="max-w-7xl mx-auto">
+        <!-- Regional Filters -->
+        <div id="regionFilters" class="flex flex-wrap gap-2 mb-8" data-aos="fade-up"></div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="galleryContainer">
+            <!-- Dynamic Cards Injected via JS -->
+        </div>
+    </section>
+</main>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="js/data.js?v=5"></script>
+<script>
+    AOS.init({ once: true });
+
+    // Internal Logic based on URL params
+    const gallery = document.getElementById('galleryContainer');
+    const pageTitle = document.getElementById('pageTitle');
+    const pageSubtitle = document.getElementById('pageSubtitle');
+    const resultCount = document.getElementById('resultCount');
+    const internalSearchInput = document.getElementById('internalSearchInput');
+
+    // Parse URL Params
+    const urlParams = new URLSearchParams(window.location.search);
+    const wilayahParam = urlParams.get('wilayah');
+    const searchParam = urlParams.get('search');
+
+    function renderCards(itemData) {
+        gallery.innerHTML = '';
+        resultCount.textContent = itemData.length;
+
+        if(itemData.length === 0) {
+            gallery.innerHTML = '<p class="col-span-full text-center text-on-surface-variant italic py-20 text-lg bg-surface-variant/30 rounded-2xl border border-outline-variant">Pencarian tidak menemukan situs manapun.</p>';
+            return;
+        }
+
+        itemData.forEach((item, index) => {
+             const delay = (index % 10) * 100;
+             const card = `
+                <a href="detail.html?id=${item.id}" class="flex flex-col group relative overflow-hidden bg-surface border border-outline-variant rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300" data-aos="fade-up" data-aos-delay="${delay}">
+                    <div class="h-36 md:h-48 overflow-hidden relative border-b border-outline-variant/50 bg-[#2c1c1c]">
+                        <!-- Default mockup image, waiting for real user insertion -->
+                        <div class="absolute inset-0 bg-primary/10 group-hover:bg-primary/0 transition-colors z-10"></div>
+                        <img src="assets/etalase/${item.id}.jpg" alt="${item.nama}" onerror="this.onerror=null; this.src='https://picsum.photos/seed/${item.id}/400/300';" class="w-full h-full object-cover mix-blend-luminosity opacity-90 group-hover:scale-105 transition-transform duration-700"/>
+                        <span class="absolute top-3 md:top-4 right-3 md:right-4 bg-background/90 backdrop-blur-md text-primary px-2 md:px-3 py-1 rounded-[4px] text-[9px] md:text-[10px] font-bold tracking-widest uppercase border border-outline-variant z-20">
+                            Cagar Budaya
+                        </span>
+                    </div>
+                    <div class="p-4 md:p-6 flex flex-col flex-1">
+                        <span class="text-[9px] md:text-[10px] text-primary-container font-bold tracking-widest uppercase mb-1 md:mb-2 block">${item.wilayah}</span>
+                        <h3 class="font-headline text-lg md:text-2xl font-bold mb-2 text-primary transition-colors leading-tight line-clamp-2">${item.nama}</h3>
+                        <p class="text-on-surface-variant text-xs md:text-sm flex-1 font-light leading-relaxed line-clamp-3">${item.deskripsi}</p>
+                    </div>
+                </a>
+             `;
+             gallery.innerHTML += card;
+        });
+        AOS.refreshHard();
+    }
+
+    // Filter States
+    let currentWilayah = wilayahParam;
+    let currentSearch = searchParam ? searchParam.toLowerCase() : null;
+
+    const regionFiltersContainer = document.getElementById('regionFilters');
+    
+    // Generate unique regions
+    const regions = [...new Set(pusakaData.map(item => item.wilayah))];
+    
+    // Render Region Chips
+    function renderRegionChips() {
+        let html = `<button onclick="filterByRegion(null)" class="px-3 md:px-5 py-1.5 md:py-2.5 rounded-full text-[10px] md:text-xs font-bold transition-all border ${!currentWilayah ? 'bg-primary text-primary-container border-primary shadow-md' : 'bg-surface text-on-surface-variant border-outline-variant hover:border-primary'}">Lihat Semua</button>`;
+        
+        regions.forEach(region => {
+            const isActive = region === currentWilayah;
+            html += `<button onclick="filterByRegion('${region}')" class="px-3 md:px-5 py-1.5 md:py-2.5 rounded-full text-[10px] md:text-xs font-bold transition-all border ${isActive ? 'bg-primary text-primary-container border-primary shadow-md' : 'bg-surface text-on-surface-variant border-outline-variant hover:border-primary'}">${region}</button>`;
+        });
+        
+        regionFiltersContainer.innerHTML = html;
+    }
+
+    window.filterByRegion = function(region) {
+        currentWilayah = region;
+        
+        // Update URL visually without reload
+        const url = new URL(window.location);
+        if(region) {
+            url.searchParams.set('wilayah', region);
+            pageTitle.textContent = region;
+            pageSubtitle.textContent = `Menelusuri peninggalan bersejarah di wilayah administrasi ${region}.`;
+        } else {
+            url.searchParams.delete('wilayah');
+            pageTitle.textContent = "Semua Wilayah";
+            pageSubtitle.textContent = "Menampilkan cagar budaya yang tersedia dalam database kami.";
+            
+            // If there's an active search, update title
+            if(currentSearch) {
+                pageTitle.textContent = `Hasil Pencarian: "${internalSearchInput.value}"`;
+                pageSubtitle.textContent = `Pencarian global di seluruh Banten.`;
+            }
+        }
+        window.history.pushState({}, '', url);
+
+        renderRegionChips();
+        applyFilters();
+    };
+
+    function applyFilters() {
+        let data = pusakaData;
+        
+        if(currentWilayah) {
+            data = data.filter(d => d.wilayah === currentWilayah);
+        }
+        
+        if(currentSearch) {
+            data = data.filter(d => d.nama.toLowerCase().includes(currentSearch) || d.deskripsi.toLowerCase().includes(currentSearch) || (!currentWilayah && d.wilayah.toLowerCase().includes(currentSearch)));
+        }
+        
+        renderCards(data);
+    }
+
+    // Process Initial Load
+    if(wilayahParam) {
+        pageTitle.textContent = wilayahParam;
+        pageSubtitle.textContent = `Menelusuri peninggalan bersejarah di wilayah administrasi ${wilayahParam}.`;
+    } else if(searchParam) {
+        internalSearchInput.value = searchParam;
+        pageTitle.textContent = `Hasil Pencarian: "${searchParam}"`;
+        pageSubtitle.textContent = `Pencarian global di seluruh Banten.`;
+    }
+    
+    renderRegionChips();
+    applyFilters();
+
+    // Dynamic Search on this page
+    internalSearchInput.addEventListener('input', (e) => {
+        currentSearch = e.target.value.toLowerCase();
+        
+        // Update title if not in specific region
+        if(!currentWilayah) {
+            if(currentSearch) {
+                pageTitle.textContent = `Hasil Pencarian: "${e.target.value}"`;
+                pageSubtitle.textContent = `Pencarian global di seluruh Banten.`;
+            } else {
+                pageTitle.textContent = "Semua Wilayah";
+                pageSubtitle.textContent = "Menampilkan cagar budaya yang tersedia dalam database kami.";
+            }
+        }
+        
+        applyFilters();
+    });
+
+</script>
+</body>
+</html>

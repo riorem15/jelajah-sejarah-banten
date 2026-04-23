@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Pusaka Banten - Peta Wilayah</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="js/tailwind.config.js?v=5"></script>
+    <link href="css/style.css?v=5" rel="stylesheet"/>
+    <script src="js/theme.js?v=5"></script>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container/30">
+
+<nav class="fixed top-0 w-full z-50 bg-primary shadow-lg border-b border-primary-container/30 flex justify-between items-center px-4 md:px-12 py-3 md:py-4 gap-2">
+    <div class="text-xl md:text-2xl font-bold font-headline text-primary-container tracking-widest flex items-center gap-2 z-50">
+        <span class="material-symbols-outlined">account_balance</span>
+        <span class="hidden sm:block">Pusaka Banten</span>
+    </div>
+    
+    <div class="flex items-center gap-2 md:gap-6 justify-end flex-1">
+        <!-- Tema Siang/Malam -->
+        <button id="themeToggleBtn" title="Mode Siang / Malam" class="text-primary-container hover:scale-110 transition-transform p-1">
+            <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+        </button>
+
+        <a href="kontribusi.html" class="flex items-center gap-2 bg-primary-container text-primary font-bold text-xs tracking-widest uppercase hover:opacity-80 transition-opacity px-3 md:px-4 py-2 rounded-full shadow-md ml-1 md:ml-3">
+            <span class="material-symbols-outlined text-sm">edit_square</span>
+            <span class="hidden sm:inline">Kontribusi</span>
+        </a>
+
+        
+        <!-- Pencarian Mandiri Bar -->
+        <div class="flex relative group z-50 justify-end">
+            <span class="material-symbols-outlined text-sm absolute left-3 top-1/2 -translate-y-1/2 text-primary pointer-events-none z-10">search</span>
+            <input type="text" id="mainSearchInput" placeholder="Cari situs..." autocomplete="off" class="pl-9 pr-3 py-2 bg-surface text-primary border border-outline-variant/60 focus:border-primary-container focus:ring-2 focus:ring-primary-container/20 outline-none transition-all w-10 focus:w-48 sm:w-48 md:w-72 font-body text-sm rounded-full sm:placeholder:text-primary/70 placeholder:text-transparent focus:placeholder:text-primary/70 shadow-inner cursor-pointer focus:cursor-text">
+            
+            <!-- Dropdown Sugesti (Hidden by default) -->
+            <ul id="searchSuggestions" class="absolute right-0 sm:left-0 top-full mt-2 w-64 sm:w-full bg-surface border border-outline-variant rounded-xl shadow-xl overflow-hidden hidden max-h-60 overflow-y-auto z-50">
+                <!-- Diisi via JS -->
+            </ul>
+        </div>
+        <div class="flex items-center border-l border-primary-container/50 pl-3 md:pl-6">
+            <span class="material-symbols-outlined text-primary-container sm:hidden">person</span>
+            <div class="hidden sm:flex flex-col items-end">
+                <span class="text-[10px] uppercase tracking-widest text-primary-container/70 font-bold">Penjelajah</span>
+                <span id="welcomeText" class="font-bold text-sm text-primary-container truncate max-w-[100px]">Tamu</span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="pt-32 pb-24 px-6 md:px-12 max-w-[1440px] mx-auto min-h-screen">
+    <header class="mb-16 relative overflow-hidden rounded-[2.5rem] border border-outline-variant/30 shadow-lg bg-surface py-20 px-6 md:px-12 text-center" data-aos="fade-down" data-aos-duration="1000">
+        
+        <!-- Peta Banten Watermark (Sangat Tipis/Transparan) -->
+        <div class="absolute inset-0 flex items-center justify-center opacity-5 dark:opacity-10 pointer-events-none">
+            <img src="assets/peta-banten-transparent.png" alt="Watermark Banten" class="w-[120%] md:w-[80%] h-auto object-contain">
+        </div>
+
+        <!-- Decorative Glows -->
+        <div class="absolute -top-20 -right-20 w-96 h-96 bg-primary-container/20 rounded-full blur-[100px] pointer-events-none"></div>
+        <div class="absolute -bottom-20 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <!-- Content -->
+        <div class="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
+            
+            <!-- Elegant Icon Background -->
+            <div class="w-20 h-20 bg-primary/5 border border-primary/20 rounded-2xl rotate-45 flex items-center justify-center mb-10 shadow-sm">
+                <span class="material-symbols-outlined text-4xl text-primary -rotate-45">account_balance</span>
+            </div>
+
+            <h1 class="text-4xl md:text-5xl lg:text-7xl font-headline text-primary mb-6 leading-tight font-bold tracking-tight">
+                Portal Cagar Budaya <br/><span class="italic text-primary-container font-light">Tanah Banten</span>
+            </h1>
+            
+            <!-- Traditional Divider -->
+            <div class="flex items-center gap-4 mb-8">
+                <div class="h-[1px] w-12 md:w-24 bg-gradient-to-r from-transparent to-primary/30"></div>
+                <div class="w-2 h-2 rotate-45 bg-primary-container"></div>
+                <div class="h-[1px] w-12 md:w-24 bg-gradient-to-l from-transparent to-primary/30"></div>
+            </div>
+
+            <p class="text-lg md:text-xl text-on-surface-variant font-light leading-relaxed max-w-3xl mx-auto">
+                Website ini didedikasikan secara khusus untuk mengeksplorasi dan melestarikan <strong>kekayaan cagar budaya</strong> di 8 Kota dan Kabupaten se-Provinsi Banten. Silakan pilih etalase wilayah di bawah ini untuk memulai penjelajahan sejarah Anda.
+            </p>
+        </div>
+    </header>
+
+    <section class="max-w-6xl mx-auto mb-16" data-aos="fade-up" data-aos-delay="50">
+        <div class="bg-surface border border-outline-variant rounded-3xl p-6 shadow-lg flex flex-col md:flex-row gap-8 items-center overflow-hidden">
+            
+            <!-- Interactive Map Container -->
+            <div class="w-full md:w-1/2 bg-background/50 rounded-2xl flex justify-center items-center min-h-[300px] border border-outline-variant/30 overflow-hidden p-4">
+                <div class="relative w-full max-w-[420px] mx-auto">
+                    <img src="assets/peta-banten-transparent.png" alt="Peta Banten" class="w-full h-auto block filter drop-shadow-lg" style="filter: sepia(1) hue-rotate(330deg) saturate(300%) brightness(70%);" />
+                    
+                    <!-- Interactive Dots -->
+                    <button class="map-dot absolute w-4 h-4 rounded-full bg-surface border-[3px] border-primary hover:border-primary-container shadow-md cursor-pointer transition-all transform hover:scale-150 z-10" 
+                            style="top: 25%; left: 40%;" 
+                            data-region="Kota Cilegon" 
+                            title="Kota Cilegon"></button>
+                    <button class="map-dot absolute w-4 h-4 rounded-full bg-surface border-[3px] border-primary hover:border-primary-container shadow-md cursor-pointer transition-all transform hover:scale-150 z-10" 
+                            style="top: 28%; left: 48%;" 
+                            data-region="Kota Serang" 
+                            title="Kota Serang"></button>
+                    <button class="map-dot absolute w-4 h-4 rounded-full bg-surface border-[3px] border-primary hover:border-primary-container shadow-md cursor-pointer transition-all transform hover:scale-150 z-10" 
+                            style="top: 30%; left: 53%;" 
+                            data-region="Kabupaten Serang" 
+                            title="Kab. Serang"></button>
+                    <button class="map-dot absolute w-4 h-4 rounded-full bg-surface border-[3px] border-primary hover:border-primary-container shadow-md cursor-pointer transition-all transform hover:scale-150 z-10" 
+                            style="top: 43%; left: 45%;" 
+                            data-region="Kabupaten Pandeglang" 
+                            title="Kab. Pandeglang"></button>
+                    <button class="map-dot absolute w-4 h-4 rounded-full bg-surface border-[3px] border-primary hover:border-primary-container shadow-md cursor-pointer transition-all transform hover:scale-150 z-10" 
+                            style="top: 45%; left: 58%;" 
+                            data-region="Kabupaten Lebak" 
+                            title="Kab. Lebak"></button>
+                    <button class="map-dot absolute w-4 h-4 rounded-full bg-surface border-[3px] border-primary hover:border-primary-container shadow-md cursor-pointer transition-all transform hover:scale-150 z-10" 
+                            style="top: 35%; left: 75%;" 
+                            data-region="Kabupaten Tangerang" 
+                            title="Kab. Tangerang"></button>
+                    <button class="map-dot absolute w-4 h-4 rounded-full bg-surface border-[3px] border-primary hover:border-primary-container shadow-md cursor-pointer transition-all transform hover:scale-150 z-10" 
+                            style="top: 28%; left: 85%;" 
+                            data-region="Kota Tangerang" 
+                            title="Kota Tangerang"></button>
+                    <button class="map-dot absolute w-4 h-4 rounded-full bg-surface border-[3px] border-primary hover:border-primary-container shadow-md cursor-pointer transition-all transform hover:scale-150 z-10" 
+                            style="top: 40%; left: 85%;" 
+                            data-region="Kota Tangerang Selatan" 
+                            title="Kota Tangerang Selatan"></button>
+                </div>
+            </div>
+
+            <!-- Narrative Container -->
+            <div class="w-full md:w-1/2 flex flex-col justify-center">
+                <h2 class="text-xs uppercase tracking-[0.2em] font-bold text-primary mb-2 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">history_edu</span> Sejarah Wilayah
+                </h2>
+                <h3 id="regionTitle" class="text-3xl font-headline font-bold text-primary-container mb-4">Pilih Wilayah</h3>
+                <div class="relative rounded-2xl border border-outline-variant/30 overflow-hidden min-h-[250px] shadow-md group bg-surface">
+                    <div id="regionBg" class="absolute inset-0 bg-cover bg-center transition-all duration-700 opacity-0 scale-105 group-hover:scale-100" style="background-image: none;"></div>
+                    <div id="regionOverlay" class="absolute inset-0 bg-black/60 transition-all duration-500 opacity-0"></div>
+                    <div id="regionNarrative" class="relative z-10 text-on-surface-variant leading-relaxed text-sm p-6 h-full flex flex-col justify-center font-medium drop-shadow-md transition-colors duration-500">
+                        Silakan klik salah satu titik wilayah pada peta di samping untuk membaca narasi sejarah singkat mengenai asal-usul dan peran wilayah tersebut di Provinsi Banten.
+                    </div>
+                </div>
+                <a id="regionLink" href="#" class="mt-6 inline-flex items-center gap-2 text-primary font-bold text-sm hover:underline w-fit hidden">
+                    Lihat Koleksi Cagar Budaya <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-4xl mx-auto mb-16" data-aos="fade-up" data-aos-delay="100">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <a href="manuskrip.html" class="group bg-surface border border-outline-variant hover:border-primary rounded-3xl p-6 flex items-center gap-6 transition-all duration-300 hover:shadow-lg relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-3xl text-primary">smart_toy</span>
+                </div>
+                <div class="relative z-10">
+                    <h3 class="font-headline font-bold text-xl text-primary mb-1">Tanya Sejarah AI</h3>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">Berdiskusi dengan asisten pintar & terjemahkan naskah kuno.</p>
+                </div>
+            </a>
+            
+            <a href="materi.html" class="group bg-surface border border-outline-variant hover:border-primary rounded-3xl p-6 flex items-center gap-6 transition-all duration-300 hover:shadow-lg relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-3xl text-primary">menu_book</span>
+                </div>
+                <div class="relative z-10">
+                    <h3 class="font-headline font-bold text-xl text-primary mb-1">Materi & Scholar</h3>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">Cari referensi buku, jurnal, dan naskah sejarah Kesultanan Banten.</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="max-w-6xl mx-auto" id="etalaseSection">
+        <div class="flex items-center gap-4 mb-8">
+            <div class="h-[1px] flex-1 bg-outline-variant"></div>
+            <h2 class="text-xs uppercase tracking-[0.2em] font-bold text-primary">8 Etalase Wilayah Banten</h2>
+            <div class="h-[1px] flex-1 bg-outline-variant"></div>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
+            
+            <!-- Region Map Cards -->
+            <a href="etalase.html?wilayah=Kota%20Serang" class="group relative bg-surface rounded-2xl p-4 md:p-6 border border-outline-variant hover:border-primary shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden" data-aos="fade-up" data-aos-delay="0">
+                <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative z-10 flex flex-col h-full justify-between">
+                    <span class="material-symbols-outlined text-3xl md:text-4xl text-primary-container group-hover:scale-110 transition-transform mb-3 md:mb-6 block">local_police</span>
+                    <div>
+                        <h3 class="font-headline text-lg md:text-2xl font-bold text-primary mb-1">Kota Serang</h3>
+                        <p class="text-[9px] md:text-xs text-on-surface-variant uppercase tracking-widest font-bold">10 Situs</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="etalase.html?wilayah=Kabupaten%20Serang" class="group relative bg-surface rounded-2xl p-4 md:p-6 border border-outline-variant hover:border-primary shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative z-10 flex flex-col h-full justify-between">
+                    <span class="material-symbols-outlined text-3xl md:text-4xl text-primary-container group-hover:scale-110 transition-transform mb-3 md:mb-6 block">water</span>
+                    <div>
+                        <h3 class="font-headline text-lg md:text-2xl font-bold text-primary mb-1">Kab. Serang</h3>
+                        <p class="text-[9px] md:text-xs text-on-surface-variant uppercase tracking-widest font-bold">10 Situs</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="etalase.html?wilayah=Kota%20Cilegon" class="group relative bg-surface rounded-2xl p-4 md:p-6 border border-outline-variant hover:border-primary shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative z-10 flex flex-col h-full justify-between">
+                    <span class="material-symbols-outlined text-3xl md:text-4xl text-primary-container group-hover:scale-110 transition-transform mb-3 md:mb-6 block">factory</span>
+                    <div>
+                        <h3 class="font-headline text-lg md:text-2xl font-bold text-primary mb-1">Kota Cilegon</h3>
+                        <p class="text-[9px] md:text-xs text-on-surface-variant uppercase tracking-widest font-bold">7 Situs</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="etalase.html?wilayah=Kabupaten%20Pandeglang" class="group relative bg-surface rounded-2xl p-4 md:p-6 border border-outline-variant hover:border-primary shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative z-10 flex flex-col h-full justify-between">
+                    <span class="material-symbols-outlined text-3xl md:text-4xl text-primary-container group-hover:scale-110 transition-transform mb-3 md:mb-6 block">landscape</span>
+                    <div>
+                        <h3 class="font-headline text-lg md:text-2xl font-bold text-primary mb-1">Pandeglang</h3>
+                        <p class="text-[9px] md:text-xs text-on-surface-variant uppercase tracking-widest font-bold">10 Situs</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="etalase.html?wilayah=Kabupaten%20Lebak" class="group relative bg-surface rounded-2xl p-4 md:p-6 border border-outline-variant hover:border-primary shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden" data-aos="fade-up" data-aos-delay="400">
+                <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative z-10 flex flex-col h-full justify-between">
+                    <span class="material-symbols-outlined text-3xl md:text-4xl text-primary-container group-hover:scale-110 transition-transform mb-3 md:mb-6 block">museum</span>
+                    <div>
+                        <h3 class="font-headline text-lg md:text-2xl font-bold text-primary mb-1">Kab. Lebak</h3>
+                        <p class="text-[9px] md:text-xs text-on-surface-variant uppercase tracking-widest font-bold">11 Situs</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="etalase.html?wilayah=Kota%20Tangerang" class="group relative bg-surface rounded-2xl p-4 md:p-6 border border-outline-variant hover:border-primary shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden" data-aos="fade-up" data-aos-delay="500">
+                <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative z-10 flex flex-col h-full justify-between">
+                    <span class="material-symbols-outlined text-3xl md:text-4xl text-primary-container group-hover:scale-110 transition-transform mb-3 md:mb-6 block">holiday_village</span>
+                    <div>
+                        <h3 class="font-headline text-lg md:text-2xl font-bold text-primary mb-1">Tangerang</h3>
+                        <p class="text-[9px] md:text-xs text-on-surface-variant uppercase tracking-widest font-bold">8 Situs</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="etalase.html?wilayah=Kabupaten%20Tangerang" class="group relative bg-surface rounded-2xl p-4 md:p-6 border border-outline-variant hover:border-primary shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden" data-aos="fade-up" data-aos-delay="600">
+                <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative z-10 flex flex-col h-full justify-between">
+                    <span class="material-symbols-outlined text-3xl md:text-4xl text-primary-container group-hover:scale-110 transition-transform mb-3 md:mb-6 block">agriculture</span>
+                    <div>
+                        <h3 class="font-headline text-lg md:text-2xl font-bold text-primary mb-1">Kab. Tng</h3>
+                        <p class="text-[9px] md:text-xs text-on-surface-variant uppercase tracking-widest font-bold">2 Situs</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="etalase.html?wilayah=Kota%20Tangerang%20Selatan" class="group relative bg-surface rounded-2xl p-4 md:p-6 border border-outline-variant hover:border-primary shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden" data-aos="fade-up" data-aos-delay="700">
+                <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative z-10 flex flex-col h-full justify-between">
+                    <span class="material-symbols-outlined text-3xl md:text-4xl text-primary-container group-hover:scale-110 transition-transform mb-3 md:mb-6 block">apartment</span>
+                    <div>
+                        <h3 class="font-headline text-lg md:text-2xl font-bold text-primary mb-1">Tangsel</h3>
+                        <p class="text-[9px] md:text-xs text-on-surface-variant uppercase tracking-widest font-bold">2 Situs</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Tombol Cek Semua Wilayah -->
+            <a href="etalase.html" class="col-span-full group relative bg-primary-container rounded-2xl p-4 md:p-6 border border-primary/20 hover:border-primary shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden text-center mt-2 md:mt-4" data-aos="fade-up" data-aos-delay="800">
+                <div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative z-10 flex flex-col h-full justify-between items-center">
+                    <span class="material-symbols-outlined text-3xl md:text-4xl text-primary group-hover:scale-110 transition-transform mb-2 md:mb-4 block">travel_explore</span>
+                    <div>
+                        <h3 class="font-headline text-xl md:text-2xl font-bold text-primary mb-1 uppercase tracking-widest">Semua Wilayah</h3>
+                        <p class="text-[9px] md:text-xs text-primary/70 uppercase tracking-widest font-bold">Daftar Penuh 60 Objek Banten</p>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+</main>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="js/data.js?v=5"></script>
+<script>
+    AOS.init({ once: true });
+    
+    // Greeting Logic
+    const user = localStorage.getItem('jsb_username');
+    if(user) {
+        document.getElementById('welcomeText').textContent = user;
+    }
+
+    // Search Bar Logic (Autocomplete)
+    const mainSearchInput = document.getElementById('mainSearchInput');
+    const searchSuggestions = document.getElementById('searchSuggestions');
+
+    mainSearchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        searchSuggestions.innerHTML = '';
+        if(query === '') {
+            searchSuggestions.classList.add('hidden');
+            return;
+        }
+
+        const matches = pusakaData.filter(d => d.nama.toLowerCase().includes(query) || d.wilayah.toLowerCase().includes(query)).slice(0, 5);
+        
+        if(matches.length > 0) {
+            searchSuggestions.classList.remove('hidden');
+            matches.forEach(match => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <a href="detail.html?id=${match.id}" class="block px-4 py-3 hover:bg-primary/10 border-b border-outline-variant/30 text-sm transition-colors text-left flex items-center justify-between">
+                        <span class="font-bold text-primary">${match.nama}</span>
+                        <span class="text-[10px] bg-secondary-container text-on-secondary-container px-2 py-1 rounded tracking-widest uppercase">${match.wilayah}</span>
+                    </a>
+                `;
+                searchSuggestions.appendChild(li);
+            });
+            const liAll = document.createElement('li');
+            liAll.innerHTML = `
+                <a href="etalase.html?search=${encodeURIComponent(query)}" class="block px-4 py-2 hover:bg-primary/10 text-xs italic text-primary/70 text-center transition-colors">
+                    Lihat semua hasil pencarian...
+                </a>
+            `;
+            searchSuggestions.appendChild(liAll);
+        } else {
+            searchSuggestions.classList.remove('hidden');
+            searchSuggestions.innerHTML = '<li class="px-4 py-3 text-sm text-on-surface-variant italic">Tidak ada situs ditemukan.</li>';
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if(!mainSearchInput.contains(e.target) && !searchSuggestions.contains(e.target)) {
+            searchSuggestions.classList.add('hidden');
+        }
+    });
+
+    mainSearchInput.addEventListener('click', (e) => {
+        if(e.target.value.trim() !== '') {
+            searchSuggestions.classList.remove('hidden');
+        }
+    });
+
+    mainSearchInput.addEventListener('keypress', (e) => {
+        if(e.key === 'Enter') {
+            const query = e.target.value.trim();
+            if(query !== '') {
+                window.location.href = `etalase.html?search=${encodeURIComponent(query)}`;
+            }
+        }
+    });
+
+    // Dynamic Region Counters
+    if (typeof pusakaData !== 'undefined') {
+        const wilayahCounts = {};
+        pusakaData.forEach(item => {
+            wilayahCounts[item.wilayah] = (wilayahCounts[item.wilayah] || 0) + 1;
+        });
+
+        document.querySelectorAll('a[href^="etalase.html?wilayah="]').forEach(link => {
+            const urlStr = link.getAttribute('href');
+            const wilayahParam = decodeURIComponent(urlStr.split('=')[1]);
+            const p = link.querySelector('p');
+            if (p) {
+                const count = wilayahCounts[wilayahParam] || 0;
+                p.textContent = `${count} Situs Tersedia`;
+            }
+        });
+    }
+
+    // Map Interaction Logic
+    const regionData = {
+        "Kota Serang": "Kota Serang merupakan ibu kota Provinsi Banten. Secara historis, wilayah ini adalah jantung Kesultanan Banten kuno (Banten Lama), tempat berdirinya Keraton Surosowan, Masjid Agung Banten, dan pusat perdagangan maritim internasional yang berjaya pada abad ke-16 hingga ke-17.",
+        "Kabupaten Serang": "Kabupaten Serang mengelilingi Kota Serang dan memiliki sejarah panjang sebagai kawasan agraris dan pesisir yang menopang kejayaan Kesultanan Banten. Wilayah Anyer di pesisir baratnya menjadi titik nol Jalan Raya Pos (Grote Postweg) yang bersejarah peninggalan Daendels.",
+        "Kota Cilegon": "Terkenal sebagai 'Kota Baja', Cilegon awalnya adalah perkampungan pesisir kecil. Sejarahnya kental dengan peristiwa Geger Cilegon tahun 1888, sebuah perlawanan heroik para petani dan ulama Banten yang dipimpin oleh Ki Wasyid melawan penindasan kolonial Belanda.",
+        "Kabupaten Pandeglang": "Terletak di ujung paling barat Pulau Jawa, Pandeglang menyimpan peninggalan purba hingga era Hindu-Buddha, seperti Situs Salakanagara yang diyakini sebagai kerajaan tertua di Nusantara. Wilayah ini kental dengan nilai-nilai religius dan seni bela diri tradisional Banten.",
+        "Kabupaten Lebak": "Lebak adalah wilayah agraris luas yang paling terkenal dengan keberadaan Suku Baduy (Urang Kanekes), masyarakat adat yang teguh memegang tradisi Sunda Buhun. Wilayah ini juga menjadi latar dari novel legendaris 'Max Havelaar' karya Multatuli yang menentang sistem tanam paksa.",
+        "Kabupaten Tangerang": "Wilayah pesisir utara Banten ini dikenal dengan julukan 'Kota Seribu Industri'. Secara historis, kawasan ini menjadi titik penting penyebaran agama Islam oleh para utusan Kesultanan Banten, sekaligus wilayah perbatasan strategis dengan Batavia di masa kolonial.",
+        "Kota Tangerang": "Kota Tangerang berkembang dari sebuah pos pertahanan perbatasan Kesultanan Banten di tepi Sungai Cisadane. Wilayah ini dijuluki 'Kota Benteng' karena sejarahnya sebagai garis pertahanan terdepan, serta menjadi rumah bagi komunitas peranakan Tionghoa bersejarah (Cina Benteng).",
+        "Kota Tangerang Selatan": "Tangerang Selatan merupakan kota satelit modern termuda hasil pemekaran wilayah. Meskipun wajahnya didominasi pembangunan urban kekinian, wilayah ini tetap memiliki jejak historis kuat sebagai jalur persimpangan penting antara Banten dan Jakarta sejak masa prakolonial."
+    };
+
+    const regionImages = {
+        "Kota Serang": "assets/bg_kota_serang.png",
+        "Kabupaten Serang": "assets/bg_kab_serang.png",
+        "Kota Cilegon": "assets/bg_kota_cilegon.png",
+        "Kabupaten Pandeglang": "assets/bg_kab_pandeglang.png",
+        "Kabupaten Lebak": "assets/bg_kab_lebak.png",
+        "Kabupaten Tangerang": "assets/bg_kab_tangerang.png",
+        "Kota Tangerang": "assets/bg_kota_tangerang.png",
+        "Kota Tangerang Selatan": "assets/bg_tangsel.png"
+    };
+
+    const mapDots = document.querySelectorAll('.map-dot');
+    const regionTitle = document.getElementById('regionTitle');
+    const regionNarrative = document.getElementById('regionNarrative');
+    const regionLink = document.getElementById('regionLink');
+    const regionBg = document.getElementById('regionBg');
+    const regionOverlay = document.getElementById('regionOverlay');
+
+    mapDots.forEach(dot => {
+        dot.addEventListener('click', () => {
+            // Reset all dots
+            mapDots.forEach(d => {
+                d.style.borderColor = 'var(--primary)';
+                d.style.backgroundColor = 'var(--surface)';
+                d.style.transform = 'scale(1)';
+            });
+            
+            // Highlight active dot (Gold)
+            dot.style.borderColor = 'var(--primary-container)';
+            dot.style.backgroundColor = 'var(--primary-container)';
+            dot.style.transform = 'scale(1.5)';
+            
+            // Update Narrative
+            const regionName = dot.getAttribute('data-region');
+            regionTitle.textContent = regionName;
+            regionNarrative.textContent = regionData[regionName] || "Narasi belum tersedia.";
+            
+            // Update Background Image
+            if(regionBg && regionImages[regionName]) {
+                regionBg.style.backgroundImage = `url('${regionImages[regionName]}')`;
+                regionBg.style.opacity = '1';
+                regionOverlay.style.opacity = '1';
+                regionNarrative.classList.remove('text-on-surface-variant');
+                regionNarrative.classList.add('text-white');
+            }
+            
+            // Update Link
+            regionLink.href = `etalase.html?wilayah=${encodeURIComponent(regionName)}`;
+            regionLink.classList.remove('hidden');
+            
+            // Scroll to narrative if on mobile
+            if(window.innerWidth < 768) {
+                regionTitle.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    });
+
+</script>
+    // --- AI CHAT WIDGET LOGIC ---
+    const aiToggleBtn = document.getElementById('aiToggleBtn');
+    const closeAiBtn = document.getElementById('closeAiBtn');
+    const aiChatWindow = document.getElementById('aiChatWindow');
+    const aiChatForm = document.getElementById('aiChatForm');
+    const aiChatInput = document.getElementById('aiChatInput');
+    const aiChatMessages = document.getElementById('aiChatMessages');
+    const aiChatSubmitBtn = document.getElementById('aiChatSubmitBtn');
+
+    // Toggle Chat Window
+    aiToggleBtn.addEventListener('click', () => {
+        aiChatWindow.classList.toggle('hidden');
+        aiChatWindow.classList.toggle('flex');
+        setTimeout(() => {
+            aiChatWindow.classList.toggle('opacity-0');
+            aiChatWindow.classList.toggle('scale-95');
+        }, 10);
+    });
+
+    closeAiBtn.addEventListener('click', () => {
+        aiChatWindow.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => {
+            aiChatWindow.classList.add('hidden');
+            aiChatWindow.classList.remove('flex');
+        }, 300);
+    });
+
+    // Helper: Add message to UI
+    function appendMessage(text, sender) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `flex gap-3 ${sender === 'user' ? 'flex-row-reverse' : ''}`;
+        
+        let iconHtml = '';
+        let bubbleClass = '';
+
+        if(sender === 'ai') {
+            iconHtml = `<div class="w-8 h-8 rounded-full bg-primary/10 flex-shrink-0 flex items-center justify-center border border-primary/20">
+                            <span class="material-symbols-outlined text-primary text-sm">smart_toy</span>
+                        </div>`;
+            bubbleClass = 'bg-surface border border-outline-variant/30 rounded-2xl rounded-tl-none p-3 shadow-sm text-on-surface';
+        } else {
+            iconHtml = `<div class="w-8 h-8 rounded-full bg-primary flex-shrink-0 flex items-center justify-center border border-primary-container">
+                            <span class="material-symbols-outlined text-primary-container text-sm">person</span>
+                        </div>`;
+            bubbleClass = 'bg-primary text-primary-container rounded-2xl rounded-tr-none p-3 shadow-md';
+        }
+
+        msgDiv.innerHTML = `
+            ${iconHtml}
+            <div class="${bubbleClass} max-w-[80%] whitespace-pre-wrap">${text}</div>
+        `;
+        
+        aiChatMessages.appendChild(msgDiv);
+        aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+    }
+
+    // Helper: Add Loading Animation
+    function showLoading() {
+        const msgDiv = document.createElement('div');
+        msgDiv.id = 'aiLoadingIndicator';
+        msgDiv.className = 'flex gap-3';
+        msgDiv.innerHTML = `
+            <div class="w-8 h-8 rounded-full bg-primary/10 flex-shrink-0 flex items-center justify-center border border-primary/20">
+                <span class="material-symbols-outlined text-primary text-sm animate-spin">autorenew</span>
+            </div>
+            <div class="bg-surface border border-outline-variant/30 rounded-2xl rounded-tl-none p-3 shadow-sm text-on-surface-variant flex items-center gap-1">
+                <div class="w-2 h-2 rounded-full bg-primary animate-bounce"></div>
+                <div class="w-2 h-2 rounded-full bg-primary animate-bounce" style="animation-delay: 0.1s"></div>
+                <div class="w-2 h-2 rounded-full bg-primary animate-bounce" style="animation-delay: 0.2s"></div>
+            </div>
+        `;
+        aiChatMessages.appendChild(msgDiv);
+        aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+    }
+
+    function removeLoading() {
+        const loading = document.getElementById('aiLoadingIndicator');
+        if(loading) loading.remove();
+    }
+
+    // Handle form submit
+    aiChatForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const prompt = aiChatInput.value.trim();
+        if(!prompt) return;
+
+        // User message
+        appendMessage(prompt, 'user');
+        aiChatInput.value = '';
+        aiChatInput.disabled = true;
+        aiChatSubmitBtn.disabled = true;
+
+        showLoading();
+
+        try {
+            // Panggil Vercel Serverless Function
+            const response = await fetch('/api/gemini', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt })
+            });
+
+            const data = await response.json();
+            removeLoading();
+
+            if (response.ok) {
+                appendMessage(data.reply, 'ai');
+            } else {
+                appendMessage("❌ Error: " + (data.error || "Gagal menghubungi server."), 'ai');
+            }
+        } catch (error) {
+            removeLoading();
+            appendMessage("❌ Terjadi kesalahan koneksi. Pastikan internet Anda aktif.", 'ai');
+        } finally {
+            aiChatInput.disabled = false;
+            aiChatSubmitBtn.disabled = false;
+            aiChatInput.focus();
+        }
+    });
+
+</script>
+
+    <!-- Floating AI Chat Widget -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+        <!-- Chat Window (Hidden by default) -->
+        <div id="aiChatWindow" class="hidden w-[350px] h-[450px] bg-background/90 backdrop-blur-xl rounded-2xl border border-primary-container/30 shadow-2xl mb-4 flex-col overflow-hidden transition-all duration-300 transform origin-bottom-right scale-95 opacity-0">
+            <!-- Header -->
+            <div class="bg-primary px-5 py-4 flex justify-between items-center shadow-md z-10">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-surface/20 flex items-center justify-center backdrop-blur-sm border border-white/20">
+                        <span class="material-symbols-outlined text-white text-lg">smart_toy</span>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold text-sm leading-tight">Pusaka Banten AI</h4>
+                        <p class="text-primary-container text-[10px] uppercase tracking-wider">Asisten Sejarah Banten</p>
+                    </div>
+                </div>
+                <button id="closeAiBtn" class="text-white/70 hover:text-white transition-colors">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            
+            <!-- Chat Messages -->
+            <div id="aiChatMessages" class="flex-1 overflow-y-auto p-5 space-y-4 text-sm scroll-smooth">
+                <!-- Welcome Message -->
+                <div class="flex gap-3">
+                    <div class="w-8 h-8 rounded-full bg-primary/10 flex-shrink-0 flex items-center justify-center border border-primary/20">
+                        <span class="material-symbols-outlined text-primary text-sm">smart_toy</span>
+                    </div>
+                    <div class="bg-surface border border-outline-variant/30 rounded-2xl rounded-tl-none p-3 shadow-sm text-on-surface">
+                        Tabik! Saya Asisten AI Sejarah Banten. Ada yang ingin Anda ketahui tentang Kesultanan Banten atau cagar budaya di sini?
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Input Area -->
+            <div class="p-4 bg-surface/80 backdrop-blur-md border-t border-outline-variant/20">
+                <form id="aiChatForm" class="flex items-center gap-2 relative">
+                    <input type="text" id="aiChatInput" placeholder="Tanya tentang sejarah..." class="w-full bg-background border border-outline-variant/50 rounded-full pl-4 pr-12 py-3 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all text-on-surface shadow-inner" required autocomplete="off">
+                    <button type="submit" id="aiChatSubmitBtn" class="absolute right-2 w-9 h-9 rounded-full bg-primary text-primary-container flex items-center justify-center hover:bg-[#4a0810] transition-colors shadow-md disabled:opacity-50 disabled:cursor-not-allowed">
+                        <span class="material-symbols-outlined text-sm transform -rotate-45">send</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Floating Button -->
+        <button id="aiToggleBtn" class="w-14 h-14 rounded-full bg-primary text-primary-container flex items-center justify-center shadow-2xl hover:scale-105 hover:bg-[#4a0810] transition-all border border-white/10 group relative">
+            <span class="absolute inset-0 rounded-full bg-primary animate-ping opacity-20"></span>
+            <span class="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform">robot_2</span>
+        </button>
+    </div>
+</body>
+</html>
