@@ -162,6 +162,7 @@
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="js/data.js?v=5"></script>
+<script src="js/placeholder.js?v=6"></script>
 <script>
     AOS.init({ once: true });
     
@@ -186,12 +187,30 @@
         document.getElementById('detailDeskripsi').innerHTML = currentObject.deskripsi;
         document.title = `${currentObject.nama} - Pusaka Banten`;
 
-        // Image loading mockup (awaiting user real files)
+        // ===== TRACKING: Catat kunjungan ke localStorage =====
+        try {
+            // 1. Hitung view per situs
+            const views = JSON.parse(localStorage.getItem('jsb_views') || '{}');
+            views[currentObject.id] = (views[currentObject.id] || 0) + 1;
+            localStorage.setItem('jsb_views', JSON.stringify(views));
+
+            // 2. Riwayat kunjungan terakhir (max 10 entri unik)
+            const history = JSON.parse(localStorage.getItem('jsb_history') || '[]');
+            const entry = {
+                id: currentObject.id,
+                nama: currentObject.nama,
+                wilayah: currentObject.wilayah,
+                timestamp: Date.now()
+            };
+            const filtered = history.filter(h => h.id !== currentObject.id);
+            filtered.unshift(entry);
+            localStorage.setItem('jsb_history', JSON.stringify(filtered.slice(0, 10)));
+        } catch(e) { /* silent fail */ }
+
         const heroImg = document.getElementById('detailHeroImage');
         heroImg.src = `assets/detail/${currentObject.id}-hero.jpg`;
         heroImg.onerror = function() {
-            this.onerror = null;
-            this.src = `https://picsum.photos/seed/${currentObject.id}/1200/600`;
+            onHeroImgError(this, currentObject.id, btoa(encodeURIComponent(currentObject.nama)), currentObject.wilayah);
         };
 
         // Inject Quick Info

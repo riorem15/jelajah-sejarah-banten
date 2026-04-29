@@ -3,35 +3,28 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Tanya Sejarah - Pusaka Banten</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <title>AI Penulis Narasi - Pusaka Banten</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries,typography"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="js/tailwind.config.js?v=5"></script>
     <link href="css/style.css?v=5" rel="stylesheet"/>
     <script src="js/theme.js?v=5"></script>
     <style>
-        /* Custom scrollbar for chat area */
-        #chatContainer::-webkit-scrollbar {
-            width: 6px;
-        }
-        #chatContainer::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        #chatContainer::-webkit-scrollbar-thumb {
-            background-color: var(--outline-variant);
-            border-radius: 10px;
-        }
         .markdown-body strong { font-weight: 800; color: var(--primary); }
         .markdown-body em { font-style: italic; }
         .markdown-body ul { list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem; }
         .markdown-body ol { list-style-type: decimal; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem; }
         .markdown-body li { margin-bottom: 0.25rem; }
+        
+        .bg-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l30 30-30 30L0 30z' fill='%23d4af37' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
     </style>
 </head>
-<body class="bg-background text-on-surface font-body selection:bg-primary-container/30 h-screen flex flex-col overflow-hidden">
+<body class="bg-background text-on-surface font-body selection:bg-primary-container/30 min-h-screen flex flex-col">
 
-<nav class="flex-none w-full z-50 bg-primary shadow-lg border-b border-primary-container/30 flex justify-between items-center px-4 md:px-12 py-3 md:py-4 gap-2">
-    <a href="index.html" class="text-xl md:text-2xl font-bold font-headline text-primary-container tracking-widest flex items-center gap-2 hover:opacity-80 transition-opacity z-50">
+<nav class="w-full z-50 bg-primary shadow-lg border-b border-primary-container/30 flex justify-between items-center px-4 md:px-12 py-3 md:py-4 gap-2">
+    <a href="dashboard.html" class="text-xl md:text-2xl font-bold font-headline text-primary-container tracking-widest flex items-center gap-2 hover:opacity-80 transition-opacity z-50">
         <span class="material-symbols-outlined">account_balance</span>
         <span class="hidden sm:block">Pusaka Banten</span>
     </a>
@@ -41,10 +34,6 @@
             <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
         </button>
 
-        <a href="kontribusi.html" class="flex items-center gap-2 bg-primary-container text-primary font-bold text-xs tracking-widest uppercase hover:opacity-80 transition-opacity px-3 md:px-4 py-2 rounded-full shadow-md ml-1 md:ml-3">
-            <span class="material-symbols-outlined text-sm">edit_square</span>
-            <span class="hidden sm:inline">Kontribusi</span>
-        </a>
         <a href="dashboard.html" class="flex items-center gap-2 text-primary-container/80 font-bold text-sm tracking-widest uppercase hover:text-primary-container transition-colors border-l border-primary-container/50 pl-4 md:pl-6">
             <span class="material-symbols-outlined text-sm">grid_view</span>
             <span class="hidden sm:inline">Dashboard</span>
@@ -52,307 +41,220 @@
     </div>
 </nav>
 
-<main class="flex-1 flex flex-col max-w-[1000px] mx-auto w-full relative h-full">
+<main class="flex-1 max-w-5xl mx-auto w-full p-6 md:p-12">
     
-    <!-- Chat Header -->
-    <div class="px-6 py-4 border-b border-outline-variant flex items-center gap-4 bg-surface/80 backdrop-blur-md sticky top-0 z-10">
-        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center shadow-md">
-            <span class="material-symbols-outlined text-primary-container">smart_toy</span>
+    <header class="mb-10 text-center" data-aos="fade-down">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-primary-container/20 border border-primary-container/50 mb-6 shadow-sm">
+            <span class="material-symbols-outlined text-4xl text-primary">history_edu</span>
         </div>
-        <div>
-            <h1 class="font-bold font-headline text-primary">Tanya Sejarah Banten</h1>
-            <p class="text-xs text-on-surface-variant">Asisten AI Cerdas bertenaga Gemini 1.5</p>
-        </div>
-    </div>
+        <h1 class="text-4xl md:text-5xl font-headline font-bold text-primary mb-4">AI Penulis Narasi Sejarah</h1>
+        <p class="text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+            Minta asisten AI kami untuk menuliskan narasi sejarah mendalam tentang wilayah, tokoh, atau peristiwa spesifik di Tanah Banten.
+        </p>
+    </header>
 
-    <!-- Chat Messages Container -->
-    <div id="chatContainer" class="flex-1 overflow-y-auto p-6 space-y-6 flex flex-col">
-        <!-- Initial Greeting Message -->
-        <div class="flex items-start gap-4">
-            <div class="w-8 h-8 rounded-full bg-primary/20 flex-shrink-0 flex items-center justify-center border border-primary/30 mt-1">
-                <span class="material-symbols-outlined text-primary text-sm">smart_toy</span>
-            </div>
-            <div class="bg-surface border border-outline-variant rounded-2xl rounded-tl-sm px-5 py-3.5 shadow-sm max-w-[85%]">
-                <p class="text-sm leading-relaxed text-on-surface font-medium">
-                    Halo! Saya adalah Asisten AI Sejarawan Banten. 🏛️<br><br>
-                    Anda bisa bertanya apa saja tentang sejarah Kesultanan Banten, tokoh-tokoh pahlawan, tempat bersejarah, atau bahkan mengunggah foto bangunan peninggalan dan naskah kuno untuk saya analisis!<br><br>
-                    <em>Ada yang ingin ditanyakan hari ini?</em>
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Input Area -->
-    <div class="p-4 bg-background border-t border-outline-variant relative z-20">
-        <!-- Image Attachment Preview -->
-        <div id="attachmentPreview" class="hidden items-center gap-3 mb-3 p-2 bg-surface border border-outline-variant rounded-lg w-fit">
-            <div id="previewThumb" class="w-12 h-12 rounded bg-cover bg-center border border-outline-variant/50"></div>
-            <div class="text-xs">
-                <p class="font-bold text-on-surface truncate w-32" id="previewName">image.jpg</p>
-                <button id="removeAttachmentBtn" class="text-red-500 hover:underline mt-0.5">Hapus Lampiran</button>
-            </div>
-        </div>
-
-        <form id="chatForm" class="flex items-end gap-2 relative">
-            <input type="file" id="imageInput" accept="image/*" class="hidden" />
-            <button type="button" id="attachBtn" class="flex-shrink-0 w-12 h-12 rounded-xl bg-surface border border-outline-variant text-primary hover:bg-primary/10 transition-colors flex items-center justify-center" title="Unggah Gambar">
-                <span class="material-symbols-outlined">image</span>
-            </button>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Input Form -->
+        <div class="lg:col-span-4 bg-surface border border-outline-variant rounded-3xl p-6 shadow-sm sticky top-24" data-aos="fade-right">
+            <h2 class="text-lg font-bold font-headline text-primary mb-6 flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm">edit_note</span> Parameter Penulisan
+            </h2>
             
-            <textarea id="messageInput" rows="1" placeholder="Tanyakan sejarah atau minta saya analisis gambar..." class="flex-1 max-h-32 min-h-[48px] py-3.5 px-4 rounded-xl bg-surface border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-sm transition-all text-on-surface resize-none no-scrollbar"></textarea>
-            
-            <button type="submit" id="sendBtn" class="flex-shrink-0 w-12 h-12 rounded-xl bg-primary text-primary-container shadow-md hover:opacity-90 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed">
-                <span class="material-symbols-outlined">send</span>
-            </button>
-        </form>
-        <p class="text-[10px] text-center text-on-surface-variant mt-2">AI dapat memberikan informasi yang keliru. Selalu periksa kembali fakta sejarah dari sumber literatur valid.</p>
-    </div>
+            <form id="writerForm" class="space-y-5">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Pilih Wilayah</label>
+                    <select id="regionSelect" class="w-full bg-background border border-outline-variant rounded-xl px-4 py-3 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none">
+                        <option value="Banten secara umum">Seluruh Banten</option>
+                        <option value="Kota Serang">Kota Serang</option>
+                        <option value="Kabupaten Serang">Kabupaten Serang</option>
+                        <option value="Kota Cilegon">Kota Cilegon</option>
+                        <option value="Kabupaten Pandeglang">Kabupaten Pandeglang</option>
+                        <option value="Kabupaten Lebak">Kabupaten Lebak</option>
+                        <option value="Kota Tangerang">Kota Tangerang</option>
+                        <option value="Kabupaten Tangerang">Kabupaten Tangerang</option>
+                        <option value="Kota Tangerang Selatan">Kota Tangerang Selatan</option>
+                    </select>
+                </div>
 
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Topik Spesifik (Opsional)</label>
+                    <input type="text" id="topicInput" placeholder="Contoh: Kesultanan, Kuliner, Tokoh..." class="w-full bg-background border border-outline-variant rounded-xl px-4 py-3 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Gaya Penulisan</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button type="button" data-style="Formal & Akademik" class="style-btn active px-3 py-2 rounded-lg border border-outline-variant text-[10px] font-bold uppercase tracking-widest transition-all">Formal</button>
+                        <button type="button" data-style="Bercerita (Storytelling)" class="style-btn px-3 py-2 rounded-lg border border-outline-variant text-[10px] font-bold uppercase tracking-widest transition-all">Storytelling</button>
+                    </div>
+                </div>
+
+                <button type="submit" id="generateBtn" class="w-full bg-primary text-primary-container font-bold py-4 rounded-xl shadow-lg hover:opacity-90 transition-all flex items-center justify-center gap-3 mt-4">
+                    <span class="material-symbols-outlined text-sm">auto_awesome</span>
+                    BUAT NARASI
+                </button>
+            </form>
+        </div>
+
+        <!-- Result Area -->
+        <div class="lg:col-span-8 space-y-6" data-aos="fade-left">
+            <div id="emptyState" class="bg-surface border border-outline-variant border-dashed rounded-3xl p-12 text-center bg-pattern">
+                <div class="w-20 h-20 bg-primary/5 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span class="material-symbols-outlined text-4xl text-primary/30">description</span>
+                </div>
+                <h3 class="text-xl font-bold text-on-surface-variant mb-2">Belum Ada Narasi</h3>
+                <p class="text-sm text-on-surface-variant/70">Pilih wilayah dan topik di samping untuk mulai membuat narasi sejarah.</p>
+            </div>
+
+            <div id="resultContainer" class="hidden bg-surface border border-outline-variant rounded-3xl p-8 md:p-12 shadow-sm relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-4">
+                    <button id="copyBtn" title="Salin Teks" class="w-10 h-10 rounded-full bg-background border border-outline-variant flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary transition-all">
+                        <span class="material-symbols-outlined text-xl">content_copy</span>
+                    </button>
+                </div>
+                
+                <div id="loadingIndicator" class="hidden flex flex-col items-center justify-center py-12">
+                    <div class="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin mb-4"></div>
+                    <p class="text-sm font-bold text-primary animate-pulse">AI sedang merangkai sejarah...</p>
+                </div>
+
+                <div id="narrativeContent" class="prose prose-lg max-w-none text-justify markdown-body">
+                    <!-- AI Content Here -->
+                </div>
+            </div>
+        </div>
+
+    </div>
 </main>
 
+<footer class="mt-auto py-8 px-6 text-center border-t border-outline-variant bg-surface/50">
+    <p class="text-xs text-on-surface-variant">© 2026 Pusaka Banten AI Engine • Bertenaga Gemini 1.5 Flash</p>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    const GEMINI_API_KEY = "AIzaSyAnD73qVYY1rxTk7jqsNo_2W8wReImtILA";
+    AOS.init({ once: true });
 
-    // UI Elements
-    const chatContainer = document.getElementById('chatContainer');
-    const chatForm = document.getElementById('chatForm');
-    const messageInput = document.getElementById('messageInput');
-    const attachBtn = document.getElementById('attachBtn');
-    const imageInput = document.getElementById('imageInput');
-    const sendBtn = document.getElementById('sendBtn');
+    const writerForm = document.getElementById('writerForm');
+    const regionSelect = document.getElementById('regionSelect');
+    const topicInput = document.getElementById('topicInput');
+    const generateBtn = document.getElementById('generateBtn');
     
-    const attachmentPreview = document.getElementById('attachmentPreview');
-    const previewThumb = document.getElementById('previewThumb');
-    const previewName = document.getElementById('previewName');
-    const removeAttachmentBtn = document.getElementById('removeAttachmentBtn');
+    const emptyState = document.getElementById('emptyState');
+    const resultContainer = document.getElementById('resultContainer');
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    const narrativeContent = document.getElementById('narrativeContent');
+    const copyBtn = document.getElementById('copyBtn');
 
-    // Conversation State
-    let chatHistory = [];
-    let currentBase64Image = null;
-    let currentMimeType = null;
-    let isWaitingForResponse = false;
+    let selectedStyle = "Formal & Akademik";
 
-    // Auto-resize textarea
-    messageInput.addEventListener('input', function() {
-        this.style.height = 'auto';
-        this.style.height = (this.scrollHeight) + 'px';
-        if(this.value.trim() !== '') {
-            sendBtn.disabled = false;
-        } else if(!currentBase64Image) {
-            sendBtn.disabled = true;
-        }
+    // Style selection
+    document.querySelectorAll('.style-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active', 'bg-primary', 'text-primary-container', 'border-primary'));
+            this.classList.add('active', 'bg-primary', 'text-primary-container', 'border-primary');
+            selectedStyle = this.dataset.style;
+        });
     });
 
-    messageInput.addEventListener('keydown', function(e) {
-        if(e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            if(!sendBtn.disabled) chatForm.dispatchEvent(new Event('submit'));
-        }
-    });
+    // Default style state
+    document.querySelector('[data-style="Formal & Akademik"]').click();
 
-    // Image Upload Logic
-    attachBtn.addEventListener('click', () => imageInput.click());
-    
-    imageInput.addEventListener('change', function() {
-        if(this.files && this.files[0]) {
-            const file = this.files[0];
-            const reader = new FileReader();
-            
-            reader.onload = function(e) {
-                const dataUrl = e.target.result;
-                currentMimeType = dataUrl.split(';')[0].split(':')[1];
-                currentBase64Image = dataUrl.split(',')[1];
-                
-                previewThumb.style.backgroundImage = `url(${dataUrl})`;
-                previewName.textContent = file.name;
-                attachmentPreview.style.display = 'flex';
-                sendBtn.disabled = false;
-                messageInput.focus();
-            }
-            reader.readAsDataURL(file);
-        }
-    });
-
-    removeAttachmentBtn.addEventListener('click', () => {
-        currentBase64Image = null;
-        currentMimeType = null;
-        imageInput.value = '';
-        attachmentPreview.style.display = 'none';
-        if(messageInput.value.trim() === '') sendBtn.disabled = true;
-    });
-
-    // Markdown Parser
+    // Markdown Parser (Simplified)
     function parseMarkdown(text) {
         let html = text
-            // Code blocks
-            .replace(/```([\s\S]*?)```/g, '<pre class="bg-black/80 text-white p-3 rounded-lg my-2 overflow-x-auto text-xs"><code>$1</code></pre>')
-            // Bold
+            .replace(/^# (.*$)/gm, '<h1 class="text-3xl font-bold text-primary mt-8 mb-4">$1</h1>')
+            .replace(/^## (.*$)/gm, '<h2 class="text-2xl font-bold text-primary mt-6 mb-3">$1</h2>')
+            .replace(/^### (.*$)/gm, '<h3 class="text-xl font-bold text-primary mt-4 mb-2">$1</h3>')
             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            // Italic
             .replace(/\*(.*?)\*/g, '<em>$1</em>')
-            // Lists
             .replace(/^\s*\*\s+(.*)/gm, '<li>$1</li>')
             .replace(/^\s*-\s+(.*)/gm, '<li>$1</li>')
-            .replace(/^\s*\d+\.\s+(.*)/gm, '<li>$1</li>');
-            
-        // Wrap lists
-        html = html.replace(/(<li>.*<\/li>(\n<li>.*<\/li>)*)/g, '<ul>$1</ul>');
+            .replace(/\n/g, '<br>');
         
-        // Line breaks
-        html = html.replace(/\n/g, '<br>');
-        return `<div class="markdown-body">${html}</div>`;
+        return html;
     }
 
-    // UI Rendering
-    function appendUserMessage(text, imgSrc) {
-        let imgHtml = '';
-        if(imgSrc) {
-            imgHtml = `<img src="${imgSrc}" class="max-w-[200px] rounded-lg mb-2 border border-outline-variant/30" />`;
-        }
-        
-        const html = `
-        <div class="flex items-start justify-end gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
-            <div class="bg-primary text-primary-container rounded-2xl rounded-tr-sm px-5 py-3.5 shadow-sm max-w-[85%]">
-                ${imgHtml}
-                <p class="text-sm leading-relaxed font-medium">${text ? text.replace(/\n/g, '<br>') : '<em>Gambar terlampir</em>'}</p>
-            </div>
-            <div class="w-8 h-8 rounded-full bg-surface-variant flex-shrink-0 flex items-center justify-center mt-1 border border-outline-variant">
-                <span class="material-symbols-outlined text-on-surface-variant text-sm">person</span>
-            </div>
-        </div>
-        `;
-        chatContainer.insertAdjacentHTML('beforeend', html);
-        scrollToBottom();
-    }
-
-    function appendModelMessage(text) {
-        const html = `
-        <div class="flex items-start gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
-            <div class="w-8 h-8 rounded-full bg-primary/20 flex-shrink-0 flex items-center justify-center border border-primary/30 mt-1">
-                <span class="material-symbols-outlined text-primary text-sm">smart_toy</span>
-            </div>
-            <div class="bg-surface border border-outline-variant rounded-2xl rounded-tl-sm px-5 py-3.5 shadow-sm max-w-[85%]">
-                <div class="text-sm leading-relaxed text-on-surface font-medium">${parseMarkdown(text)}</div>
-            </div>
-        </div>
-        `;
-        chatContainer.insertAdjacentHTML('beforeend', html);
-        scrollToBottom();
-    }
-
-    function showTypingIndicator() {
-        const id = 'typing-' + Date.now();
-        const html = `
-        <div id="${id}" class="flex items-start gap-4">
-            <div class="w-8 h-8 rounded-full bg-primary/20 flex-shrink-0 flex items-center justify-center border border-primary/30 mt-1">
-                <span class="material-symbols-outlined text-primary text-sm">smart_toy</span>
-            </div>
-            <div class="bg-surface border border-outline-variant rounded-2xl rounded-tl-sm px-5 py-4 shadow-sm flex items-center gap-1.5 w-16">
-                <div class="w-1.5 h-1.5 bg-primary/60 rounded-full animate-bounce"></div>
-                <div class="w-1.5 h-1.5 bg-primary/60 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
-                <div class="w-1.5 h-1.5 bg-primary/60 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
-            </div>
-        </div>
-        `;
-        chatContainer.insertAdjacentHTML('beforeend', html);
-        scrollToBottom();
-        return id;
-    }
-
-    function removeTypingIndicator(id) {
-        const el = document.getElementById(id);
-        if(el) el.remove();
-    }
-
-    function scrollToBottom() {
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-    }
-
-    // Chat Submission
-    chatForm.addEventListener('submit', async (e) => {
+    writerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        if(isWaitingForResponse) return;
-
-        const text = messageInput.value.trim();
-        if(!text && !currentBase64Image) return;
-
-        // Save current image state
-        const imgData = currentBase64Image;
-        const imgMime = currentMimeType;
-        const imgSrc = imgData ? previewThumb.style.backgroundImage.slice(5, -2) : null;
-
-        // Clear UI
-        messageInput.value = '';
-        messageInput.style.height = 'auto';
-        sendBtn.disabled = true;
-        removeAttachmentBtn.click();
         
-        // Render User Message
-        appendUserMessage(text, imgSrc);
-
-        // Prepare request payload
-        let parts = [];
-        if(text) parts.push({ text: text });
-        if(imgData) parts.push({
-            inline_data: { mime_type: imgMime, data: imgData }
-        });
-
-        // Add to history
-        chatHistory.push({ role: "user", parts: parts });
-
-        const typingId = showTypingIndicator();
-        isWaitingForResponse = true;
+        const region = regionSelect.value;
+        const topic = topicInput.value.trim();
+        
+        emptyState.classList.add('hidden');
+        resultContainer.classList.remove('hidden');
+        loadingIndicator.classList.remove('hidden');
+        narrativeContent.classList.add('hidden');
+        generateBtn.disabled = true;
+        generateBtn.classList.add('opacity-50');
 
         try {
-            const systemPrompt = `Anda adalah Asisten AI bernama "Pusaka Banten". Tugas Anda adalah menjadi pemandu dan sejarawan ahli mengenai Kesultanan Banten, benda cagar budaya, prasasti, dan sejarah lokal Banten. Berbicaralah dengan ramah, edukatif, dan gunakan bahasa Indonesia yang baik. Jika ada pengguna mengunggah gambar naskah kuno atau prasasti, bantu mereka untuk membacanya, menerjemahkannya, atau menebak konteks sejarahnya.`;
+            const promptText = `Tolong tuliskan sebuah narasi sejarah yang mendalam, akurat, dan menarik mengenai:
+            
+            Wilayah: ${region}
+            Topik Spesifik: ${topic || "Sejarah umum dan warisan budaya"}
+            Gaya Penulisan: ${selectedStyle}
+            
+            Struktur penulisan:
+            1. Judul yang menarik.
+            2. Pendahuluan (Asal usul nama/wilayah).
+            3. Isi Utama (Peristiwa penting, tokoh terkait, atau peninggalan cagar budaya).
+            4. Penutup (Kesimpulan dan nilai penting bagi masa kini).
+            
+            Gunakan bahasa Indonesia yang baku namun mengalir. Pastikan data yang diberikan akurat sesuai literatur sejarah Banten. Gunakan format Markdown (bold untuk penekanan).`;
 
-            // Salin riwayat chat agar tidak mengubah state UI
-            const apiContents = JSON.parse(JSON.stringify(chatHistory));
-            if (apiContents.length > 0 && apiContents[0].role === "user") {
-                if (apiContents[0].parts[0].text) {
-                    apiContents[0].parts[0].text = systemPrompt + "\n\n[Pesan Pengguna]: " + apiContents[0].parts[0].text;
-                } else {
-                    apiContents[0].parts.unshift({ text: systemPrompt + "\n\n[Pesan Pengguna]: (Hanya mengirim gambar)" });
-                }
-            }
-
-            const payload = {
-                contents: apiContents,
-                generationConfig: {
-                    temperature: 0.4
-                }
-            };
-
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+            const response = await fetch('/api/gemini', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
+                body: JSON.stringify({ prompt: promptText })
             });
 
-            removeTypingIndicator(typingId);
+            const data = await response.json();
 
             if(!response.ok) {
-                const errData = await response.json();
-                throw new Error(errData.error?.message || "Gagal menghubungi Gemini API.");
+                // Check if running on raw localhost server (not vercel dev)
+                if(response.status === 404 && window.location.hostname === 'localhost') {
+                    throw new Error("Endpoint /api/gemini tidak ditemukan. Pastikan Anda menjalankan server menggunakan 'vercel dev', bukan sekadar 'npx serve'.");
+                }
+                throw new Error(data.error || "Gagal terhubung ke AI Engine.");
             }
 
-            const data = await response.json();
-            const replyText = data.candidates[0].content.parts[0].text;
+            const text = data.reply;
             
-            // Add to history
-            chatHistory.push({ role: "model", parts: [{ text: replyText }] });
+            narrativeContent.innerHTML = parseMarkdown(text);
             
-            appendModelMessage(replyText);
+            loadingIndicator.classList.add('hidden');
+            narrativeContent.classList.remove('hidden');
 
-        } catch (error) {
-            removeTypingIndicator(typingId);
-            chatHistory.pop(); // Remove the failed user message from history
-            appendModelMessage(`**Maaf, terjadi kesalahan:** ${error.message}\nSilakan coba lagi.`);
+        } catch (err) {
+            narrativeContent.innerHTML = `<p class="text-red-500 font-bold">Terjadi kesalahan: ${err.message}</p>`;
+            loadingIndicator.classList.add('hidden');
+            narrativeContent.classList.remove('hidden');
         } finally {
-            isWaitingForResponse = false;
+            generateBtn.disabled = false;
+            generateBtn.classList.remove('opacity-50');
         }
+    });
+
+    copyBtn.addEventListener('click', () => {
+        const text = narrativeContent.innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const icon = copyBtn.querySelector('.material-symbols-outlined');
+            icon.textContent = 'check';
+            setTimeout(() => icon.textContent = 'content_copy', 2000);
+        });
     });
 
 </script>
+
+<style>
+    .style-btn.active {
+        background-color: rgb(var(--primary));
+        color: rgb(var(--primary-container));
+        border-color: rgb(var(--primary));
+    }
+</style>
+
 </body>
 </html>

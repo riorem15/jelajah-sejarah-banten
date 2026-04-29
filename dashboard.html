@@ -3,12 +3,183 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Pusaka Banten - Peta Wilayah</title>
+    <title>Pusaka Banten - Portal Cagar Budaya</title>
+    <meta name="description" content="Jelajahi 60 situs cagar budaya di 8 wilayah Provinsi Banten. Portal digital warisan sejarah Kesultanan Banten.">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="js/tailwind.config.js?v=5"></script>
     <link href="css/style.css?v=5" rel="stylesheet"/>
     <script src="js/theme.js?v=5"></script>
+    <style>
+        /* ===== HERO SECTION ===== */
+        .hero-section {
+            position: relative;
+            min-height: 520px;
+            overflow: hidden;
+            border-radius: 2.5rem;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 25px 80px rgba(94, 11, 21, 0.25);
+        }
+        .hero-bg-photo {
+            position: absolute;
+            inset: 0;
+            background-image: url('assets/dashboard/hero-masjid-banten.png');
+            background-size: cover;
+            background-position: center 30%;
+            transform: scale(1.05);
+            transition: transform 8s ease-out;
+        }
+        .hero-section:hover .hero-bg-photo {
+            transform: scale(1);
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(44, 10, 15, 0.45) 0%,
+                rgba(94, 11, 21, 0.65) 50%,
+                rgba(20, 5, 8, 0.92) 100%
+            );
+        }
+        .hero-overlay-top {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to right,
+                rgba(94, 11, 21, 0.3) 0%,
+                transparent 60%
+            );
+        }
+
+        /* ===== FLOATING ORNAMENTS ===== */
+        .ornament-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .ornament {
+            position: absolute;
+            opacity: 0.12;
+            animation: floatOrn 12s ease-in-out infinite;
+        }
+        .ornament:nth-child(1) { top: 8%;  left: 5%;  width: 90px;  animation-delay: 0s;   animation-duration: 14s; }
+        .ornament:nth-child(2) { top: 15%; right: 6%; width: 70px;  animation-delay: 2s;   animation-duration: 11s; }
+        .ornament:nth-child(3) { bottom: 12%; left: 8%;  width: 60px;  animation-delay: 4s;   animation-duration: 16s; }
+        .ornament:nth-child(4) { bottom: 20%; right: 5%; width: 80px;  animation-delay: 1s;   animation-duration: 13s; }
+        .ornament:nth-child(5) { top: 45%; left: 2%;  width: 50px;  animation-delay: 3s;   animation-duration: 18s; }
+        .ornament:nth-child(6) { top: 40%; right: 3%; width: 55px;  animation-delay: 5s;   animation-duration: 15s; }
+        @keyframes floatOrn {
+            0%   { transform: translateY(0px)   rotate(0deg);   }
+            33%  { transform: translateY(-18px) rotate(8deg);  }
+            66%  { transform: translateY(10px)  rotate(-6deg); }
+            100% { transform: translateY(0px)   rotate(0deg);   }
+        }
+
+        /* Small floating diamonds / geometric motifs */
+        .geo-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(212, 175, 55, 0.5);
+            transform: rotate(45deg);
+            animation: floatGeo 9s ease-in-out infinite;
+        }
+        .geo-particle:nth-child(1)  { top: 20%; left: 18%; animation-delay: 0s;  animation-duration: 9s; }
+        .geo-particle:nth-child(2)  { top: 60%; left: 25%; animation-delay: 1.5s; animation-duration: 11s; }
+        .geo-particle:nth-child(3)  { top: 30%; right: 22%; animation-delay: 3s;  animation-duration: 8s; }
+        .geo-particle:nth-child(4)  { bottom: 25%; right: 18%; animation-delay: 0.8s; animation-duration: 13s; }
+        .geo-particle:nth-child(5)  { top: 75%; left: 45%;  animation-delay: 2s;  animation-duration: 10s; }
+        .geo-particle:nth-child(6)  { top: 15%; left: 60%;  animation-delay: 4s;  animation-duration: 12s; }
+        .geo-particle:nth-child(7)  { top: 55%; right: 40%; animation-delay: 1s;  animation-duration: 7s; }
+        .geo-particle:nth-child(8)  { bottom: 10%; left: 55%; animation-delay: 3.5s; animation-duration: 14s; }
+        @keyframes floatGeo {
+            0%   { transform: rotate(45deg) translateY(0);    opacity: 0.5; }
+            50%  { transform: rotate(225deg) translateY(-20px); opacity: 0.8; }
+            100% { transform: rotate(405deg) translateY(0);    opacity: 0.5; }
+        }
+
+        /* ===== STATS COUNTER ===== */
+        .stats-section {
+            position: relative;
+        }
+        .stat-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(212,175,55,0.07) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .stat-number {
+            animation: countUp 0.8s ease-out forwards;
+        }
+        .stat-divider {
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, rgba(212,175,55,0.5), transparent);
+        }
+        /* Shimmer line above stats */
+        .shimmer-bar {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+            background-size: 200% 100%;
+            animation: shimmerBar 3s ease-in-out infinite;
+        }
+        @keyframes shimmerBar {
+            0%   { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Hero badge pulse */
+        @keyframes badgePulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(212,175,55,0.4); }
+            50%       { box-shadow: 0 0 0 10px rgba(212,175,55,0); }
+        }
+        .badge-pulse {
+            animation: badgePulse 2.5s ease-in-out infinite;
+        }
+
+        /* ===== STATISTIK BAR CHART ===== */
+        @keyframes slideInBar {
+            from { width: 0%; opacity: 0; }
+            to   { opacity: 1; }
+        }
+        .bar-fill {
+            animation: slideInBar 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation-delay: var(--bar-delay, 0s);
+            width: 0%;
+        }
+        @keyframes progressFill {
+            from { width: 0%; }
+        }
+        .progress-fill {
+            animation: progressFill 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation-delay: var(--prog-delay, 0s);
+            width: 0%;
+        }
+        @keyframes historySlide {
+            from { opacity: 0; transform: translateX(20px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+        .history-item {
+            animation: historySlide 0.5s ease-out forwards;
+            animation-delay: var(--hist-delay, 0s);
+            opacity: 0;
+        }
+        /* Medal colors for top 3 */
+        .rank-1 { background: linear-gradient(135deg, #D4AF37, #FFE680); color: #5E0B15; }
+        .rank-2 { background: linear-gradient(135deg, #C0C0C0, #E8E8E8); color: #3a3a3a; }
+        .rank-3 { background: linear-gradient(135deg, #CD7F32, #E8A87C); color: #fff; }
+        .rank-other { background: rgb(var(--color-surface-variant)); color: rgb(var(--color-on-surface-variant)); }
+    </style>
 </head>
 <body class="bg-background text-on-surface font-body selection:bg-primary-container/30">
 
@@ -51,41 +222,172 @@
 </nav>
 
 <main class="pt-32 pb-24 px-6 md:px-12 max-w-[1440px] mx-auto min-h-screen">
-    <header class="mb-16 relative overflow-hidden rounded-[2.5rem] border border-outline-variant/30 shadow-lg bg-surface py-20 px-6 md:px-12 text-center" data-aos="fade-down" data-aos-duration="1000">
-        
-        <!-- Peta Banten Watermark (Sangat Tipis/Transparan) -->
-        <div class="absolute inset-0 flex items-center justify-center opacity-5 dark:opacity-10 pointer-events-none">
-            <img src="assets/peta-banten-transparent.png" alt="Watermark Banten" class="w-[120%] md:w-[80%] h-auto object-contain">
+    <!-- ===== CINEMATIC HERO SECTION ===== -->
+    <header class="hero-section mb-6" data-aos="fade-down" data-aos-duration="1000">
+
+        <!-- Background Photo -->
+        <div class="hero-bg-photo"></div>
+        <!-- Gradient Overlays -->
+        <div class="hero-overlay"></div>
+        <div class="hero-overlay-top"></div>
+
+        <!-- Floating Ornamental SVGs -->
+        <div class="ornament-container">
+            <!-- Batik-inspired SVG motifs -->
+            <svg class="ornament" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="45" stroke="#D4AF37" stroke-width="2"/>
+                <circle cx="50" cy="50" r="30" stroke="#D4AF37" stroke-width="1.5" stroke-dasharray="6 4"/>
+                <circle cx="50" cy="50" r="15" stroke="#D4AF37" stroke-width="1"/>
+                <line x1="50" y1="5" x2="50" y2="95" stroke="#D4AF37" stroke-width="1" opacity="0.5"/>
+                <line x1="5" y1="50" x2="95" y2="50" stroke="#D4AF37" stroke-width="1" opacity="0.5"/>
+                <polygon points="50,20 65,50 50,80 35,50" stroke="#D4AF37" stroke-width="1" fill="none" opacity="0.6"/>
+            </svg>
+            <svg class="ornament" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10" y="10" width="80" height="80" stroke="#D4AF37" stroke-width="2" transform="rotate(45 50 50)"/>
+                <rect x="25" y="25" width="50" height="50" stroke="#D4AF37" stroke-width="1.5" transform="rotate(45 50 50)"/>
+                <circle cx="50" cy="50" r="8" fill="#D4AF37" opacity="0.8"/>
+                <circle cx="50" cy="10" r="4" fill="#D4AF37" opacity="0.6"/>
+                <circle cx="50" cy="90" r="4" fill="#D4AF37" opacity="0.6"/>
+                <circle cx="10" cy="50" r="4" fill="#D4AF37" opacity="0.6"/>
+                <circle cx="90" cy="50" r="4" fill="#D4AF37" opacity="0.6"/>
+            </svg>
+            <svg class="ornament" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="50,5 95,25 95,75 50,95 5,75 5,25" stroke="#D4AF37" stroke-width="2" fill="none"/>
+                <polygon points="50,20 80,35 80,65 50,80 20,65 20,35" stroke="#D4AF37" stroke-width="1" fill="none" opacity="0.7"/>
+                <circle cx="50" cy="50" r="12" stroke="#D4AF37" stroke-width="1.5" fill="none"/>
+            </svg>
+            <svg class="ornament" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 5 L65 35 L95 35 L72 55 L82 85 L50 68 L18 85 L28 55 L5 35 L35 35 Z" stroke="#D4AF37" stroke-width="2" fill="none"/>
+                <circle cx="50" cy="50" r="10" fill="#D4AF37" opacity="0.5"/>
+            </svg>
+            <svg class="ornament" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="40" stroke="#D4AF37" stroke-width="1.5" stroke-dasharray="4 3"/>
+                <path d="M50 10 C70 30 70 70 50 90 C30 70 30 30 50 10" stroke="#D4AF37" stroke-width="1.5" fill="none"/>
+                <path d="M10 50 C30 30 70 30 90 50 C70 70 30 70 10 50" stroke="#D4AF37" stroke-width="1.5" fill="none"/>
+            </svg>
+            <svg class="ornament" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="20" y="20" width="60" height="60" stroke="#D4AF37" stroke-width="2"/>
+                <rect x="30" y="30" width="40" height="40" stroke="#D4AF37" stroke-width="1" stroke-dasharray="3 2"/>
+                <line x1="20" y1="20" x2="80" y2="80" stroke="#D4AF37" stroke-width="1" opacity="0.5"/>
+                <line x1="80" y1="20" x2="20" y2="80" stroke="#D4AF37" stroke-width="1" opacity="0.5"/>
+                <circle cx="50" cy="50" r="6" fill="#D4AF37" opacity="0.7"/>
+            </svg>
+
+            <!-- Floating geometric diamonds -->
+            <div class="geo-particle"></div>
+            <div class="geo-particle"></div>
+            <div class="geo-particle"></div>
+            <div class="geo-particle"></div>
+            <div class="geo-particle"></div>
+            <div class="geo-particle"></div>
+            <div class="geo-particle"></div>
+            <div class="geo-particle"></div>
         </div>
 
-        <!-- Decorative Glows -->
-        <div class="absolute -top-20 -right-20 w-96 h-96 bg-primary-container/20 rounded-full blur-[100px] pointer-events-none"></div>
-        <div class="absolute -bottom-20 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-[100px] pointer-events-none"></div>
+        <!-- Hero Content -->
+        <div class="relative z-10 py-20 px-6 md:px-12 text-center max-w-5xl mx-auto flex flex-col items-center">
 
-        <!-- Content -->
-        <div class="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
-            
-            <!-- Elegant Icon Background -->
-            <div class="w-20 h-20 bg-primary/5 border border-primary/20 rounded-2xl rotate-45 flex items-center justify-center mb-10 shadow-sm">
-                <span class="material-symbols-outlined text-4xl text-primary -rotate-45">account_balance</span>
+            <!-- Badge -->
+            <div class="badge-pulse inline-flex items-center gap-2 bg-primary-container/20 border border-primary-container/50 backdrop-blur-sm rounded-full px-4 py-2 mb-8" data-aos="fade-down" data-aos-delay="200">
+                <span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+                <span class="text-primary-container text-xs font-bold uppercase tracking-[0.2em]">Warisan Budaya Provinsi Banten</span>
             </div>
 
-            <h1 class="text-4xl md:text-5xl lg:text-7xl font-headline text-primary mb-6 leading-tight font-bold tracking-tight">
-                Portal Cagar Budaya <br/><span class="italic text-primary-container font-light">Tanah Banten</span>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-headline text-white mb-6 leading-tight font-bold tracking-tight drop-shadow-2xl" data-aos="fade-up" data-aos-delay="300">
+                Portal Cagar Budaya
+                <br/>
+                <span class="text-primary-container italic font-light">Tanah Banten</span>
             </h1>
-            
+
             <!-- Traditional Divider -->
-            <div class="flex items-center gap-4 mb-8">
-                <div class="h-[1px] w-12 md:w-24 bg-gradient-to-r from-transparent to-primary/30"></div>
-                <div class="w-2 h-2 rotate-45 bg-primary-container"></div>
-                <div class="h-[1px] w-12 md:w-24 bg-gradient-to-l from-transparent to-primary/30"></div>
+            <div class="flex items-center gap-4 mb-8" data-aos="fade-up" data-aos-delay="400">
+                <div class="h-[1px] w-16 md:w-32 bg-gradient-to-r from-transparent to-primary-container/60"></div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <rect x="2" y="2" width="20" height="20" transform="rotate(45 12 12)" stroke="#D4AF37" stroke-width="1.5"/>
+                    <rect x="5" y="5" width="14" height="14" transform="rotate(45 12 12)" stroke="#D4AF37" stroke-width="1" opacity="0.6"/>
+                    <circle cx="12" cy="12" r="2" fill="#D4AF37"/>
+                </svg>
+                <div class="h-[1px] w-16 md:w-32 bg-gradient-to-l from-transparent to-primary-container/60"></div>
             </div>
 
-            <p class="text-lg md:text-xl text-on-surface-variant font-light leading-relaxed max-w-3xl mx-auto">
-                Website ini didedikasikan secara khusus untuk mengeksplorasi dan melestarikan <strong>kekayaan cagar budaya</strong> di 8 Kota dan Kabupaten se-Provinsi Banten. Silakan pilih etalase wilayah di bawah ini untuk memulai penjelajahan sejarah Anda.
+            <p class="text-base md:text-xl text-white/80 font-light leading-relaxed max-w-3xl mx-auto drop-shadow-md" data-aos="fade-up" data-aos-delay="500">
+                Dedikasi digital untuk mengeksplorasi dan melestarikan
+                <strong class="text-primary-container font-semibold">kekayaan cagar budaya</strong>
+                di 8 Kota dan Kabupaten se-Provinsi Banten.
             </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-wrap gap-4 justify-center mt-10" data-aos="fade-up" data-aos-delay="600">
+                <a href="#etalaseSection" class="flex items-center gap-2 bg-primary-container text-primary font-bold px-6 py-3 rounded-full text-sm uppercase tracking-widest hover:brightness-110 transition-all shadow-lg hover:shadow-primary-container/30 hover:-translate-y-0.5">
+                    <span class="material-symbols-outlined text-sm">explore</span>
+                    Mulai Jelajah
+                </a>
+                <a href="etalase.html" class="flex items-center gap-2 bg-white/10 border border-white/30 text-white backdrop-blur-sm font-medium px-6 py-3 rounded-full text-sm hover:bg-white/20 transition-all hover:-translate-y-0.5">
+                    <span class="material-symbols-outlined text-sm">grid_view</span>
+                    Semua Situs
+                </a>
+            </div>
         </div>
     </header>
+
+    <!-- ===== ANIMATED STATS COUNTER ===== -->
+    <section class="mb-16" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+        <div class="shimmer-bar mb-0 rounded-t-3xl"></div>
+        <div class="bg-surface border border-outline-variant/50 border-t-0 rounded-b-3xl shadow-lg px-4 py-8 md:py-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-0 max-w-4xl mx-auto">
+
+                <!-- Stat 1 -->
+                <div class="stat-card flex flex-col items-center justify-center py-6 px-4 rounded-2xl text-center group hover:bg-primary/5 transition-colors cursor-default">
+                    <div class="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-2xl text-primary">account_balance</span>
+                    </div>
+                    <div class="flex items-end gap-1">
+                        <span id="statSitus" class="stat-number text-4xl md:text-5xl font-headline font-bold text-primary leading-none">0</span>
+                        <span class="text-primary-container font-bold text-xl mb-1">+</span>
+                    </div>
+                    <p class="text-xs uppercase tracking-[0.2em] text-on-surface-variant font-bold mt-2">Situs Cagar Budaya</p>
+                </div>
+
+                <!-- Divider -->
+                <div class="stat-divider hidden md:block self-center mx-0"></div>
+
+                <!-- Stat 2 -->
+                <div class="stat-card flex flex-col items-center justify-center py-6 px-4 rounded-2xl text-center group hover:bg-primary/5 transition-colors cursor-default">
+                    <div class="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-2xl text-primary">map</span>
+                    </div>
+                    <div class="flex items-end gap-1">
+                        <span id="statWilayah" class="stat-number text-4xl md:text-5xl font-headline font-bold text-primary leading-none">0</span>
+                    </div>
+                    <p class="text-xs uppercase tracking-[0.2em] text-on-surface-variant font-bold mt-2">Wilayah Banten</p>
+                </div>
+
+                <!-- Stat 3 -->
+                <div class="stat-card flex flex-col items-center justify-center py-6 px-4 rounded-2xl text-center group hover:bg-primary/5 transition-colors cursor-default">
+                    <div class="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-2xl text-primary">history_edu</span>
+                    </div>
+                    <div class="flex items-end gap-1">
+                        <span id="statTahun" class="stat-number text-4xl md:text-5xl font-headline font-bold text-primary leading-none">0</span>
+                        <span class="text-primary-container font-bold text-xl mb-1">+</span>
+                    </div>
+                    <p class="text-xs uppercase tracking-[0.2em] text-on-surface-variant font-bold mt-2">Tahun Sejarah</p>
+                </div>
+
+                <!-- Stat 4 -->
+                <div class="stat-card flex flex-col items-center justify-center py-6 px-4 rounded-2xl text-center group hover:bg-primary/5 transition-colors cursor-default">
+                    <div class="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-2xl text-primary">people</span>
+                    </div>
+                    <div class="flex items-end gap-1">
+                        <span id="statKontributor" class="stat-number text-4xl md:text-5xl font-headline font-bold text-primary leading-none">0</span>
+                    </div>
+                    <p class="text-xs uppercase tracking-[0.2em] text-on-surface-variant font-bold mt-2">Kontributor Data</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
 
     <section class="max-w-6xl mx-auto mb-16" data-aos="fade-up" data-aos-delay="50">
         <div class="bg-surface border border-outline-variant rounded-3xl p-6 shadow-lg flex flex-col md:flex-row gap-8 items-center overflow-hidden">
@@ -151,16 +453,113 @@
         </div>
     </section>
 
+    <!-- ===== STATISTIK PENGUNJUNG ===== -->
+    <section class="max-w-6xl mx-auto mb-16" data-aos="fade-up" data-aos-delay="80" id="statsPanel">
+        <!-- Section Header -->
+        <div class="flex items-center gap-4 mb-8">
+            <div class="h-[1px] flex-1 bg-outline-variant"></div>
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm text-primary-container">bar_chart</span>
+                <h2 class="text-xs uppercase tracking-[0.2em] font-bold text-primary">Statistik Eksplorasi Anda</h2>
+            </div>
+            <div class="h-[1px] flex-1 bg-outline-variant"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <!-- === PANEL 1: Situs Paling Sering Dilihat === -->
+            <div class="lg:col-span-2 bg-surface border border-outline-variant rounded-3xl p-6 shadow-sm relative overflow-hidden" data-aos="fade-right" data-aos-delay="100">
+                <!-- Gold accent corner -->
+                <div class="absolute top-0 right-0 w-32 h-32 bg-primary-container/10 rounded-bl-full pointer-events-none"></div>
+                
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-xl text-primary">trending_up</span>
+                        </div>
+                        <div>
+                            <h3 class="font-headline font-bold text-primary text-base">Situs Paling Sering Dilihat</h3>
+                            <p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Berdasarkan Riwayat Kunjungan Anda</p>
+                        </div>
+                    </div>
+                    <button onclick="clearStats()" title="Reset Statistik" class="text-on-surface-variant/40 hover:text-primary transition-colors">
+                        <span class="material-symbols-outlined text-lg">restart_alt</span>
+                    </button>
+                </div>
+
+                <!-- Bar Chart Container -->
+                <div id="topSitusChart" class="space-y-3">
+                    <!-- Filled by JS -->
+                    <div class="flex flex-col items-center justify-center py-10 text-center opacity-50" id="topSitusEmpty">
+                        <span class="material-symbols-outlined text-4xl text-primary/30 mb-3">bar_chart</span>
+                        <p class="text-sm text-on-surface-variant">Belum ada data kunjungan.</p>
+                        <p class="text-xs text-on-surface-variant/60 mt-1">Mulai jelajahi situs untuk melihat statistik.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- === PANEL 2: Terakhir Dikunjungi === -->
+            <div class="bg-surface border border-outline-variant rounded-3xl p-6 shadow-sm relative overflow-hidden" data-aos="fade-left" data-aos-delay="150">
+                <div class="absolute bottom-0 left-0 w-24 h-24 bg-primary/5 rounded-tr-full pointer-events-none"></div>
+
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-xl text-primary">history</span>
+                    </div>
+                    <div>
+                        <h3 class="font-headline font-bold text-primary text-base">Terakhir Dikunjungi</h3>
+                        <p class="text-[10px] text-on-surface-variant uppercase tracking-widest">5 Situs Terbaru</p>
+                    </div>
+                </div>
+
+                <div id="recentHistoryList" class="space-y-2 relative z-10">
+                    <div class="flex flex-col items-center justify-center py-8 text-center opacity-50" id="recentEmpty">
+                        <span class="material-symbols-outlined text-4xl text-primary/30 mb-3">explore_off</span>
+                        <p class="text-xs text-on-surface-variant">Belum ada riwayat kunjungan.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- === PANEL 3: Wilayah Terpopuler (Full Width below) === -->
+            <div class="lg:col-span-3 bg-surface border border-outline-variant rounded-3xl p-6 shadow-sm relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-1 bg-gradient-to-r from-transparent via-primary-container to-transparent rounded-full"></div>
+
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-xl text-primary">donut_large</span>
+                        </div>
+                        <div>
+                            <h3 class="font-headline font-bold text-primary text-base">Wilayah Yang Paling Sering Dijelajahi</h3>
+                            <p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Distribusi Kunjungan per Kabupaten/Kota</p>
+                        </div>
+                    </div>
+                    <span id="totalVisitsBadge" class="text-[10px] bg-primary/10 text-primary px-3 py-1 rounded-full font-bold uppercase tracking-widest hidden">
+                        <span id="totalVisitsNum">0</span> Total Kunjungan
+                    </span>
+                </div>
+
+                <div id="wilayahProgressChart" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="flex flex-col items-center justify-center py-8 text-center opacity-50 md:col-span-2" id="wilayahEmpty">
+                        <span class="material-symbols-outlined text-4xl text-primary/30 mb-3">map</span>
+                        <p class="text-sm text-on-surface-variant">Belum ada data wilayah.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
     <section class="max-w-4xl mx-auto mb-16" data-aos="fade-up" data-aos-delay="100">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <a href="manuskrip.html" class="group bg-surface border border-outline-variant hover:border-primary rounded-3xl p-6 flex items-center gap-6 transition-all duration-300 hover:shadow-lg relative overflow-hidden">
                 <div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                    <span class="material-symbols-outlined text-3xl text-primary">smart_toy</span>
+                    <span class="material-symbols-outlined text-3xl text-primary">history_edu</span>
                 </div>
                 <div class="relative z-10">
-                    <h3 class="font-headline font-bold text-xl text-primary mb-1">Tanya Sejarah AI</h3>
-                    <p class="text-xs text-on-surface-variant leading-relaxed">Berdiskusi dengan asisten pintar & terjemahkan naskah kuno.</p>
+                    <h3 class="font-headline font-bold text-xl text-primary mb-1">AI Penulis Sejarah</h3>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">Minta AI untuk menuliskan narasi sejarah mendalam tentang Tanah Banten.</p>
                 </div>
             </a>
             
@@ -296,11 +695,213 @@
 <script src="js/data.js?v=5"></script>
 <script>
     AOS.init({ once: true });
-    
+
+    // ===== ANIMATED STATS COUNTER =====
+    function animateCounter(el, target, duration = 1800) {
+        let start = 0;
+        const step = target / (duration / 16);
+        const timer = setInterval(() => {
+            start += step;
+            if (start >= target) {
+                el.textContent = target;
+                clearInterval(timer);
+            } else {
+                el.textContent = Math.floor(start);
+            }
+        }, 16);
+    }
+
+    // Use IntersectionObserver so counters fire when scrolled into view
+    const statsSection = document.querySelector('.shimmer-bar');
+    let countersRan = false;
+    if (statsSection) {
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !countersRan) {
+                countersRan = true;
+                animateCounter(document.getElementById('statSitus'), 60, 1600);
+                animateCounter(document.getElementById('statWilayah'), 8, 1000);
+                animateCounter(document.getElementById('statTahun'), 400, 2000);
+                // Contributor count from localStorage submissions + base
+                const pending = JSON.parse(localStorage.getItem('jsb_contributions') || '[]');
+                const approved = JSON.parse(localStorage.getItem('jsb_approved') || '[]');
+                const total = 12 + pending.length + approved.length;
+                animateCounter(document.getElementById('statKontributor'), total, 1200);
+            }
+        }, { threshold: 0.3 });
+        observer.observe(statsSection);
+    }
+
     // Greeting Logic
     const user = localStorage.getItem('jsb_username');
     if(user) {
         document.getElementById('welcomeText').textContent = user;
+    }
+
+    // ===== STATISTIK ENGINE =====
+    function renderStatistiks() {
+        const views  = JSON.parse(localStorage.getItem('jsb_views')   || '{}');
+        const history = JSON.parse(localStorage.getItem('jsb_history') || '[]');
+
+        // --- PANEL 1: Top 5 Situs ---
+        const topSitusChart = document.getElementById('topSitusChart');
+        const topSitusEmpty = document.getElementById('topSitusEmpty');
+
+        const sortedViews = Object.entries(views)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 5);
+
+        if (sortedViews.length > 0) {
+            topSitusEmpty.style.display = 'none';
+            const maxViews = sortedViews[0][1];
+            const rankLabels = ['🥇', '🥈', '🥉', '4', '5'];
+
+            sortedViews.forEach(([id, count], idx) => {
+                const situs = pusakaData.find(d => d.id === id);
+                if (!situs) return;
+                const pct = Math.max(10, Math.round((count / maxViews) * 100));
+                const rankClass = idx < 3 ? `rank-${idx+1}` : 'rank-other';
+                const barColor = idx === 0
+                    ? 'bg-gradient-to-r from-[#D4AF37] to-[#FFE680]'
+                    : idx === 1
+                    ? 'bg-gradient-to-r from-[#A0A0A0] to-[#D0D0D0]'
+                    : idx === 2
+                    ? 'bg-gradient-to-r from-[#CD7F32] to-[#E8A87C]'
+                    : 'bg-primary/60';
+
+                const row = document.createElement('div');
+                row.className = 'flex items-center gap-3 group';
+                row.style.setProperty('--bar-delay', `${idx * 0.12}s`);
+                row.innerHTML = `
+                    <div class="w-7 h-7 rounded-lg flex-shrink-0 flex items-center justify-center text-xs font-bold shadow-sm ${rankClass}">
+                        ${rankLabels[idx]}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex justify-between items-center mb-1">
+                            <a href="detail.html?id=${situs.id}" class="text-xs font-bold text-primary hover:underline truncate max-w-[65%]">${situs.nama}</a>
+                            <span class="text-[10px] text-on-surface-variant font-bold ml-2 flex-shrink-0">${count}× kunjungan</span>
+                        </div>
+                        <div class="h-2.5 bg-surface-variant rounded-full overflow-hidden">
+                            <div class="h-full rounded-full bar-fill ${barColor}" style="--bar-delay:${idx*0.15}s; width:${pct}%"></div>
+                        </div>
+                        <p class="text-[9px] text-on-surface-variant/70 mt-1 tracking-wider">${situs.wilayah}</p>
+                    </div>
+                `;
+                topSitusChart.appendChild(row);
+            });
+        }
+
+        // --- PANEL 2: Riwayat Terakhir ---
+        const recentList = document.getElementById('recentHistoryList');
+        const recentEmpty = document.getElementById('recentEmpty');
+
+        const recent5 = history.slice(0, 5);
+        if (recent5.length > 0) {
+            recentEmpty.style.display = 'none';
+            recent5.forEach((item, idx) => {
+                const timeAgo = getTimeAgo(item.timestamp);
+                const card = document.createElement('a');
+                card.href = `detail.html?id=${item.id}`;
+                card.className = 'history-item flex items-center gap-3 p-3 rounded-xl hover:bg-primary/5 border border-outline-variant/30 hover:border-primary/30 transition-all group';
+                card.style.setProperty('--hist-delay', `${idx * 0.1}s`);
+                card.innerHTML = `
+                    <div class="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-sm text-primary">location_city</span>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <p class="text-xs font-bold text-primary truncate">${item.nama}</p>
+                        <p class="text-[10px] text-on-surface-variant">${timeAgo} · ${item.wilayah}</p>
+                    </div>
+                    <span class="material-symbols-outlined text-sm text-on-surface-variant/40 group-hover:text-primary transition-colors flex-shrink-0">arrow_forward_ios</span>
+                `;
+                recentList.appendChild(card);
+            });
+        }
+
+        // --- PANEL 3: Wilayah Terpopuler ---
+        const wilayahChart = document.getElementById('wilayahProgressChart');
+        const wilayahEmpty = document.getElementById('wilayahEmpty');
+        const totalBadge   = document.getElementById('totalVisitsBadge');
+        const totalNum     = document.getElementById('totalVisitsNum');
+
+        // Hitung per wilayah dari data views
+        const wilayahCount = {};
+        let grandTotal = 0;
+        Object.entries(views).forEach(([id, cnt]) => {
+            const situs = pusakaData.find(d => d.id === id);
+            if (situs) {
+                wilayahCount[situs.wilayah] = (wilayahCount[situs.wilayah] || 0) + cnt;
+                grandTotal += cnt;
+            }
+        });
+
+        const sortedWilayah = Object.entries(wilayahCount).sort((a, b) => b[1] - a[1]);
+
+        if (sortedWilayah.length > 0) {
+            wilayahEmpty.style.display = 'none';
+            totalBadge.classList.remove('hidden');
+            totalNum.textContent = grandTotal;
+            const maxW = sortedWilayah[0][1];
+
+            const wilayahColors = [
+                'from-[#D4AF37] to-[#FFE680]',
+                'from-[#5E0B15] to-[#9B1728]',
+                'from-[#2196F3] to-[#64B5F6]',
+                'from-[#4CAF50] to-[#81C784]',
+                'from-[#FF9800] to-[#FFB74D]',
+                'from-[#9C27B0] to-[#CE93D8]',
+                'from-[#00BCD4] to-[#80DEEA]',
+                'from-[#F44336] to-[#EF9A9A]',
+            ];
+
+            sortedWilayah.forEach(([wilayah, cnt], idx) => {
+                const pct = Math.max(8, Math.round((cnt / maxW) * 100));
+                const colorClass = wilayahColors[idx % wilayahColors.length];
+                const div = document.createElement('div');
+                div.className = 'space-y-1.5';
+                div.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-on-surface truncate max-w-[70%]">${wilayah}</span>
+                        <span class="text-[10px] font-bold text-on-surface-variant">${cnt} kunjungan · ${Math.round((cnt/grandTotal)*100)}%</span>
+                    </div>
+                    <div class="h-3 bg-surface-variant rounded-full overflow-hidden">
+                        <div class="h-full rounded-full bg-gradient-to-r ${colorClass} progress-fill" style="--prog-delay:${idx*0.1}s; width:${pct}%"></div>
+                    </div>
+                `;
+                wilayahChart.appendChild(div);
+            });
+        }
+    }
+
+    function getTimeAgo(timestamp) {
+        const diff = Date.now() - timestamp;
+        const m = Math.floor(diff / 60000);
+        const h = Math.floor(diff / 3600000);
+        const d = Math.floor(diff / 86400000);
+        if (m < 1)  return 'Baru saja';
+        if (m < 60) return `${m} menit lalu`;
+        if (h < 24) return `${h} jam lalu`;
+        return `${d} hari lalu`;
+    }
+
+    function clearStats() {
+        if (confirm('Reset semua statistik kunjungan Anda?')) {
+            localStorage.removeItem('jsb_views');
+            localStorage.removeItem('jsb_history');
+            location.reload();
+        }
+    }
+
+    // Trigger rendering when stats panel scrolls into view
+    const statsPanel = document.getElementById('statsPanel');
+    let statsRendered = false;
+    if (statsPanel) {
+        const statsObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !statsRendered) {
+                statsRendered = true;
+                renderStatistiks();
+            }
+        }, { threshold: 0.1 });
+        statsObserver.observe(statsPanel);
     }
 
     // Search Bar Logic (Autocomplete)
@@ -603,55 +1204,5 @@
 
 </script>
 
-    <!-- Floating AI Chat Widget -->
-    <div class="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 flex flex-col items-end">
-        <!-- Chat Window (Hidden by default) -->
-        <div id="aiChatWindow" class="hidden w-[calc(100vw-2rem)] max-w-[350px] h-[400px] md:h-[450px] bg-background/90 backdrop-blur-xl rounded-2xl border border-primary-container/30 shadow-2xl mb-4 flex-col overflow-hidden transition-all duration-300 transform origin-bottom-right scale-95 opacity-0">
-            <!-- Header -->
-            <div class="bg-primary px-5 py-4 flex justify-between items-center shadow-md z-10">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-full bg-surface/20 flex items-center justify-center backdrop-blur-sm border border-white/20">
-                        <span class="material-symbols-outlined text-white text-lg">smart_toy</span>
-                    </div>
-                    <div>
-                        <h4 class="text-white font-bold text-sm leading-tight">Pusaka Banten AI</h4>
-                        <p class="text-primary-container text-[10px] uppercase tracking-wider">Asisten Sejarah Banten</p>
-                    </div>
-                </div>
-                <button id="closeAiBtn" class="text-white/70 hover:text-white transition-colors">
-                    <span class="material-symbols-outlined">close</span>
-                </button>
-            </div>
-            
-            <!-- Chat Messages -->
-            <div id="aiChatMessages" class="flex-1 overflow-y-auto p-5 space-y-4 text-sm scroll-smooth">
-                <!-- Welcome Message -->
-                <div class="flex gap-3">
-                    <div class="w-8 h-8 rounded-full bg-primary/10 flex-shrink-0 flex items-center justify-center border border-primary/20">
-                        <span class="material-symbols-outlined text-primary text-sm">smart_toy</span>
-                    </div>
-                    <div class="bg-surface border border-outline-variant/30 rounded-2xl rounded-tl-none p-3 shadow-sm text-on-surface">
-                        Tabik! Saya Asisten AI Sejarah Banten. Ada yang ingin Anda ketahui tentang Kesultanan Banten atau cagar budaya di sini?
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Input Area -->
-            <div class="p-4 bg-surface/80 backdrop-blur-md border-t border-outline-variant/20">
-                <form id="aiChatForm" class="flex items-center gap-2 relative">
-                    <input type="text" id="aiChatInput" placeholder="Tanya tentang sejarah..." class="w-full bg-background border border-outline-variant/50 rounded-full pl-4 pr-12 py-3 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all text-on-surface shadow-inner" required autocomplete="off">
-                    <button type="submit" id="aiChatSubmitBtn" class="absolute right-2 w-9 h-9 rounded-full bg-primary text-primary-container flex items-center justify-center hover:bg-[#4a0810] transition-colors shadow-md disabled:opacity-50 disabled:cursor-not-allowed">
-                        <span class="material-symbols-outlined text-sm transform -rotate-45">send</span>
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Floating Button -->
-        <button id="aiToggleBtn" class="w-14 h-14 rounded-full bg-primary text-primary-container flex items-center justify-center shadow-2xl hover:scale-105 hover:bg-[#4a0810] transition-all border border-white/10 group relative">
-            <span class="absolute inset-0 rounded-full bg-primary animate-ping opacity-20"></span>
-            <span class="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform">robot_2</span>
-        </button>
-    </div>
 </body>
 </html>
