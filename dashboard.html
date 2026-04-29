@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="utf-8"/>
@@ -397,39 +397,56 @@
                 <div class="relative w-full max-w-[420px] mx-auto">
                     <img src="assets/peta-banten-transparent.png" alt="Peta Banten" class="w-full h-auto block filter drop-shadow-lg" style="filter: sepia(1) hue-rotate(330deg) saturate(300%) brightness(70%);" />
                     
-                    <!-- Interactive Dots -->
-                    <button class="map-dot absolute w-4 h-4 rounded-full bg-surface border-[3px] border-primary hover:border-primary-container shadow-md cursor-pointer transition-all transform hover:scale-150 z-10" 
-                            style="top: 18%; left: 32%;" 
+                    <!-- Interactive Dots (SVG Pins) -->
+                    <!-- The coordinates are adjusted to match the provided map image -->
+                    <button class="map-dot absolute w-8 h-8 -ml-4 -mt-8 flex items-center justify-center cursor-pointer transition-all transform hover:scale-125 z-10 text-primary hover:text-primary-container drop-shadow-lg" 
+                            style="top: 15%; left: 55%;" 
                             data-region="Kota Cilegon" 
-                            title="Kota Cilegon"></button>
-                    <button class="map-dot absolute w-4 h-4 rounded-full bg-surface border-[3px] border-primary hover:border-primary-container shadow-md cursor-pointer transition-all transform hover:scale-150 z-10" 
-                            style="top: 25%; left: 45%;" 
+                            title="Kota Cilegon">
+                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full pointer-events-none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    </button>
+                    <button class="map-dot absolute w-8 h-8 -ml-4 -mt-8 flex items-center justify-center cursor-pointer transition-all transform hover:scale-125 z-10 text-primary hover:text-primary-container drop-shadow-lg" 
+                            style="top: 28%; left: 63%;" 
                             data-region="Kota Serang" 
-                            title="Kota Serang"></button>
-                    <button class="map-dot absolute w-4 h-4 rounded-full bg-surface border-[3px] border-primary hover:border-primary-container shadow-md cursor-pointer transition-all transform hover:scale-150 z-10" 
-                            style="top: 35%; left: 40%;" 
+                            title="Kota Serang">
+                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full pointer-events-none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    </button>
+                    <button class="map-dot absolute w-8 h-8 -ml-4 -mt-8 flex items-center justify-center cursor-pointer transition-all transform hover:scale-125 z-10 text-primary hover:text-primary-container drop-shadow-lg" 
+                            style="top: 30%; left: 53%;" 
                             data-region="Kabupaten Serang" 
-                            title="Kab. Serang"></button>
-                    <button class="map-dot absolute w-4 h-4 rounded-full bg-surface border-[3px] border-primary hover:border-primary-container shadow-md cursor-pointer transition-all transform hover:scale-150 z-10" 
-                            style="top: 60%; left: 35%;" 
+                            title="Kab. Serang">
+                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full pointer-events-none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    </button>
+                    <button class="map-dot absolute w-8 h-8 -ml-4 -mt-8 flex items-center justify-center cursor-pointer transition-all transform hover:scale-125 z-10 text-primary hover:text-primary-container drop-shadow-lg" 
+                            style="top: 58%; left: 42%;" 
                             data-region="Kabupaten Pandeglang" 
-                            title="Kab. Pandeglang"></button>
-                    <button class="map-dot absolute w-4 h-4 rounded-full bg-surface border-[3px] border-primary hover:border-primary-container shadow-md cursor-pointer transition-all transform hover:scale-150 z-10" 
-                            style="top: 65%; left: 55%;" 
+                            title="Kab. Pandeglang">
+                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full pointer-events-none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    </button>
+                    <button class="map-dot absolute w-8 h-8 -ml-4 -mt-8 flex items-center justify-center cursor-pointer transition-all transform hover:scale-125 z-10 text-primary hover:text-primary-container drop-shadow-lg" 
+                            style="top: 60%; left: 64%;" 
                             data-region="Kabupaten Lebak" 
-                            title="Kab. Lebak"></button>
-                    <button class="map-dot absolute w-4 h-4 rounded-full bg-surface border-[3px] border-primary hover:border-primary-container shadow-md cursor-pointer transition-all transform hover:scale-150 z-10" 
-                            style="top: 30%; left: 75%;" 
+                            title="Kab. Lebak">
+                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full pointer-events-none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    </button>
+                    <button class="map-dot absolute w-8 h-8 -ml-4 -mt-8 flex items-center justify-center cursor-pointer transition-all transform hover:scale-125 z-10 text-primary hover:text-primary-container drop-shadow-lg" 
+                            style="top: 30%; left: 77%;" 
                             data-region="Kabupaten Tangerang" 
-                            title="Kab. Tangerang"></button>
-                    <button class="map-dot absolute w-4 h-4 rounded-full bg-surface border-[3px] border-primary hover:border-primary-container shadow-md cursor-pointer transition-all transform hover:scale-150 z-10" 
-                            style="top: 25%; left: 88%;" 
+                            title="Kab. Tangerang">
+                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full pointer-events-none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    </button>
+                    <button class="map-dot absolute w-8 h-8 -ml-4 -mt-8 flex items-center justify-center cursor-pointer transition-all transform hover:scale-125 z-10 text-primary hover:text-primary-container drop-shadow-lg" 
+                            style="top: 28%; left: 91%;" 
                             data-region="Kota Tangerang" 
-                            title="Kota Tangerang"></button>
-                    <button class="map-dot absolute w-4 h-4 rounded-full bg-surface border-[3px] border-primary hover:border-primary-container shadow-md cursor-pointer transition-all transform hover:scale-150 z-10" 
-                            style="top: 38%; left: 88%;" 
+                            title="Kota Tangerang">
+                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full pointer-events-none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    </button>
+                    <button class="map-dot absolute w-8 h-8 -ml-4 -mt-8 flex items-center justify-center cursor-pointer transition-all transform hover:scale-125 z-10 text-primary hover:text-primary-container drop-shadow-lg" 
+                            style="top: 38%; left: 90%;" 
                             data-region="Kota Tangerang Selatan" 
-                            title="Kota Tangerang Selatan"></button>
+                            title="Kota Tangerang Selatan">
+                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full pointer-events-none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    </button>
                 </div>
             </div>
 
@@ -1070,14 +1087,14 @@
         dot.addEventListener('click', () => {
             // Reset all dots
             mapDots.forEach(d => {
-                d.style.borderColor = 'var(--primary)';
-                d.style.backgroundColor = 'var(--surface)';
+                d.classList.remove('text-primary-container');
+                d.classList.add('text-primary');
                 d.style.transform = 'scale(1)';
             });
             
             // Highlight active dot (Gold)
-            dot.style.borderColor = 'var(--primary-container)';
-            dot.style.backgroundColor = 'var(--primary-container)';
+            dot.classList.remove('text-primary');
+            dot.classList.add('text-primary-container');
             dot.style.transform = 'scale(1.5)';
             
             // Update Narrative
