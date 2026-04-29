@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="utf-8"/>
@@ -703,6 +703,48 @@
 
 </main>
 
+<footer class="bg-surface border-t border-outline-variant mt-16 py-12 px-6 md:px-12 relative z-10">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+            <div class="text-xl font-bold font-headline text-primary-container tracking-widest flex items-center gap-2 mb-4">
+                <span class="material-symbols-outlined">account_balance</span>
+                <span>Pusaka Banten</span>
+            </div>
+            <p class="text-sm text-on-surface-variant leading-relaxed">
+                Portal digital warisan sejarah Kesultanan Banten. Dedikasi digital untuk mengeksplorasi dan melestarikan kekayaan cagar budaya di Provinsi Banten.
+            </p>
+        </div>
+        <div>
+            <h4 class="font-bold text-primary mb-4 uppercase tracking-widest text-xs">Hubungi Kami</h4>
+            <ul class="space-y-3 text-sm text-on-surface-variant">
+                <li class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary text-sm">call</span>
+                    089684859728
+                </li>
+                <li class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary text-sm">mail</span>
+                    PusakaBanten@gmail.com
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-primary text-sm mt-0.5">location_on</span>
+                    <span>Provinsi Banten, Indonesia<br>Serang, Banten</span>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="font-bold text-primary mb-4 uppercase tracking-widest text-xs">Tautan Cepat</h4>
+            <ul class="space-y-2 text-sm text-on-surface-variant">
+                <li><a href="dashboard.html" class="hover:text-primary transition-colors">Dashboard</a></li>
+                <li><a href="etalase.html" class="hover:text-primary transition-colors">Semua Situs</a></li>
+                <li><a href="kontribusi.html" class="hover:text-primary transition-colors">Kontribusi Data</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="max-w-6xl mx-auto mt-12 pt-6 border-t border-outline-variant/50 text-center text-xs text-on-surface-variant uppercase tracking-widest">
+        &copy; 2026 Pusaka Banten. Hak Cipta Dilindungi.
+    </div>
+</footer>
+
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="js/data.js?v=5"></script>
 <script>
@@ -765,7 +807,7 @@
         if (sortedViews.length > 0) {
             topSitusEmpty.style.display = 'none';
             const maxViews = sortedViews[0][1];
-            const rankLabels = ['🥇', '🥈', '🥉', '4', '5'];
+            const rankLabels = ['ðŸ¥‡', 'ðŸ¥ˆ', 'ðŸ¥‰', '4', '5'];
 
             sortedViews.forEach(([id, count], idx) => {
                 const situs = pusakaData.find(d => d.id === id);
@@ -790,7 +832,7 @@
                     <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-center mb-1">
                             <a href="detail.html?id=${situs.id}" class="text-xs font-bold text-primary hover:underline truncate max-w-[65%]">${situs.nama}</a>
-                            <span class="text-[10px] text-on-surface-variant font-bold ml-2 flex-shrink-0">${count}× kunjungan</span>
+                            <span class="text-[10px] text-on-surface-variant font-bold ml-2 flex-shrink-0">${count}Ã— kunjungan</span>
                         </div>
                         <div class="h-2.5 bg-surface-variant rounded-full overflow-hidden">
                             <div class="h-full rounded-full bar-fill ${barColor}" style="--bar-delay:${idx*0.15}s; width:${pct}%"></div>
@@ -821,7 +863,7 @@
                     </div>
                     <div class="min-w-0 flex-1">
                         <p class="text-xs font-bold text-primary truncate">${item.nama}</p>
-                        <p class="text-[10px] text-on-surface-variant">${timeAgo} · ${item.wilayah}</p>
+                        <p class="text-[10px] text-on-surface-variant">${timeAgo} Â· ${item.wilayah}</p>
                     </div>
                     <span class="material-symbols-outlined text-sm text-on-surface-variant/40 group-hover:text-primary transition-colors flex-shrink-0">arrow_forward_ios</span>
                 `;
@@ -873,7 +915,7 @@
                 div.innerHTML = `
                     <div class="flex justify-between items-center">
                         <span class="text-xs font-bold text-on-surface truncate max-w-[70%]">${wilayah}</span>
-                        <span class="text-[10px] font-bold text-on-surface-variant">${cnt} kunjungan · ${Math.round((cnt/grandTotal)*100)}%</span>
+                        <span class="text-[10px] font-bold text-on-surface-variant">${cnt} kunjungan Â· ${Math.round((cnt/grandTotal)*100)}%</span>
                     </div>
                     <div class="h-3 bg-surface-variant rounded-full overflow-hidden">
                         <div class="h-full rounded-full bg-gradient-to-r ${colorClass} progress-fill" style="--prog-delay:${idx*0.1}s; width:${pct}%"></div>
@@ -1164,7 +1206,7 @@
                 apiKey = prompt("PENGATURAN AWAL: Silakan tempelkan (paste) API Key Gemini Anda di sini untuk mengaktifkan AI:");
                 if (!apiKey) {
                     removeLoading();
-                    appendMessage("❌ Akses ditolak karena API Key kosong. Silakan refresh halaman dan coba lagi.", 'ai');
+                    appendMessage("âŒ Akses ditolak karena API Key kosong. Silakan refresh halaman dan coba lagi.", 'ai');
                     aiChatInput.disabled = false;
                     aiChatSubmitBtn.disabled = false;
                     return;
@@ -1194,19 +1236,19 @@
                 // Jika API Key salah, hapus dari memori agar bisa memasukkan ulang
                 if (data.error.message.toLowerCase().includes('key') || response.status === 400 || response.status === 403) {
                     localStorage.removeItem('gemini_api_key');
-                    appendMessage("❌ API Key tidak valid atau salah. Sistem telah meresetnya. Silakan kirim pesan lagi untuk memasukkan API Key yang benar.", 'ai');
+                    appendMessage("âŒ API Key tidak valid atau salah. Sistem telah meresetnya. Silakan kirim pesan lagi untuk memasukkan API Key yang benar.", 'ai');
                 } else {
-                    appendMessage("❌ Error Google: " + data.error.message, 'ai');
+                    appendMessage("âŒ Error Google: " + data.error.message, 'ai');
                 }
             } else if (data.candidates && data.candidates[0].content) {
                 appendMessage(data.candidates[0].content.parts[0].text, 'ai');
             } else {
-                appendMessage("❌ Gagal memahami format balasan server.", 'ai');
+                appendMessage("âŒ Gagal memahami format balasan server.", 'ai');
             }
 
         } catch (error) {
             removeLoading();
-            appendMessage("❌ Terjadi kesalahan koneksi jaringan. Pastikan internet Anda aktif.", 'ai');
+            appendMessage("âŒ Terjadi kesalahan koneksi jaringan. Pastikan internet Anda aktif.", 'ai');
         } finally {
             aiChatInput.disabled = false;
             aiChatSubmitBtn.disabled = false;
