@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="utf-8"/>
@@ -123,7 +123,7 @@
                     <!-- Data Injected Here -->
                     <div id="weatherData" class="hidden">
                         <div class="flex items-end gap-3 mb-2">
-                            <span id="wtTemp" class="text-4xl font-headline font-bold text-primary">--Â°C</span>
+                            <span id="wtTemp" class="text-4xl font-headline font-bold text-primary">--&deg;C</span>
                             <span class="text-on-surface-variant pb-1 font-body text-sm font-semibold">Saat Ini</span>
                         </div>
                         <div class="flex items-center gap-4 mt-6 bg-surface-variant/40 p-4 rounded-xl border border-outline-variant/50">
@@ -250,7 +250,7 @@
         } catch(e) { /* silent fail */ }
 
         const heroImg = document.getElementById('detailHeroImage');
-        heroImg.src = `assets/detail/${currentObject.id}-hero.jpg`;
+        heroImg.src = currentObject.imageDetail || `assets/detail/${currentObject.id}-hero.jpg`;
         heroImg.onerror = function() {
             onHeroImgError(this, currentObject.id, btoa(encodeURIComponent(currentObject.nama)), currentObject.wilayah);
         };
@@ -291,7 +291,7 @@
                 document.getElementById('weatherLoading').classList.add('hidden');
                 document.getElementById('weatherData').classList.remove('hidden');
 
-                document.getElementById('wtTemp').textContent = `${temp}Â°C`;
+                document.getElementById('wtTemp').textContent = `${temp}${String.fromCharCode(176)}C`;
                 document.getElementById('wtHum').textContent = `${hum}%`;
             })
             .catch(err => {

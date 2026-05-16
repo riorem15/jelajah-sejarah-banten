@@ -390,10 +390,10 @@
     </section>
 
     <section class="max-w-6xl mx-auto mb-16" data-aos="fade-up" data-aos-delay="50">
-        <div class="bg-surface border border-outline-variant rounded-3xl p-6 shadow-lg flex flex-col md:flex-row gap-8 items-center overflow-hidden">
+        <div class="heritage-panel bg-surface border border-outline-variant rounded-3xl p-6 shadow-lg flex flex-col md:flex-row gap-8 items-center overflow-hidden">
             
             <!-- Interactive Map Container -->
-            <div class="w-full md:w-1/2 bg-background/50 rounded-2xl flex justify-center items-center min-h-[300px] border border-outline-variant/30 overflow-hidden p-4">
+            <div class="w-full md:w-1/2 bg-background/70 rounded-2xl flex justify-center items-center min-h-[300px] border border-outline-variant/30 overflow-hidden p-4 shadow-inner">
                 <div class="relative w-full max-w-[420px] mx-auto">
                     <img src="assets/peta-banten-transparent.png" alt="Peta Banten" class="w-full h-auto block filter drop-shadow-lg" style="filter: sepia(1) hue-rotate(330deg) saturate(300%) brightness(70%);" />
                     
@@ -456,7 +456,7 @@
                     <span class="material-symbols-outlined text-sm">history_edu</span> Sejarah Wilayah
                 </h2>
                 <h3 id="regionTitle" class="text-3xl font-headline font-bold text-primary-container mb-4">Pilih Wilayah</h3>
-                <div class="relative rounded-2xl border border-outline-variant/30 overflow-hidden min-h-[250px] shadow-md group bg-surface">
+                <div class="relative rounded-2xl border border-outline-variant/30 overflow-hidden min-h-[250px] shadow-md group bg-surface image-sheen">
                     <div id="regionBg" class="absolute inset-0 bg-cover bg-center transition-all duration-700 opacity-0 scale-105 group-hover:scale-100" style="background-image: none;"></div>
                     <div id="regionOverlay" class="absolute inset-0 bg-black/60 transition-all duration-500 opacity-0"></div>
                     <div id="regionNarrative" class="relative z-10 text-on-surface-variant leading-relaxed text-sm p-6 h-full flex flex-col justify-center font-medium drop-shadow-md transition-colors duration-500">
@@ -568,40 +568,26 @@
     </section>
 
     <section class="max-w-6xl mx-auto mb-16" data-aos="fade-up" data-aos-delay="100">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <a href="javascript:void(0)" onclick="alert('Maaf, AI MASIH DALAM TAHAP PENGEMBANGAN')" class="group bg-surface border border-outline-variant hover:border-primary rounded-3xl p-6 flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-6 transition-all duration-300 hover:shadow-lg relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                    <span class="material-symbols-outlined text-3xl text-primary">history_edu</span>
+        <div class="heritage-panel bg-surface border border-outline-variant rounded-3xl p-6 md:p-8 shadow-sm overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 lg:gap-10 items-center">
+                <div>
+                    <p class="text-xs uppercase tracking-[0.2em] font-bold text-primary-container mb-3">Informasi Digital Kolaboratif</p>
+                    <h2 class="font-headline text-2xl md:text-4xl font-bold text-primary mb-3">Bantu lengkapi jejak sejarah Banten</h2>
+                    <p class="text-sm md:text-base text-on-surface-variant leading-relaxed max-w-3xl">
+                        Pengunjung dapat mengirim data cagar budaya, narasi sejarah, titik lokasi, dan foto pendukung. Setiap kiriman akan masuk ke daftar tinjauan admin sebelum ditampilkan di etalase publik.
+                    </p>
                 </div>
-                <div class="relative z-10 text-center lg:text-left">
-                    <h3 class="font-headline font-bold text-lg xl:text-xl text-primary mb-1">AI Penulis Sejarah</h3>
-                    <span class="inline-block bg-primary/10 text-primary text-[9px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full mb-2 border border-primary/20">TAHAP PENGEMBANGAN</span>
-                    <p class="text-xs text-on-surface-variant leading-relaxed">Minta AI untuk menuliskan narasi sejarah mendalam tentang Tanah Banten.</p>
+                <div class="flex flex-col sm:flex-row lg:flex-col gap-3">
+                    <a href="kontribusi.html" class="focus-ring inline-flex items-center justify-center gap-2 bg-primary-container text-primary font-bold px-6 py-3 rounded-full text-xs uppercase tracking-widest hover:brightness-110 transition-all shadow-md">
+                        <span class="material-symbols-outlined text-sm">upload_file</span>
+                        Kirim Kontribusi
+                    </a>
+                    <a href="admin.html" class="focus-ring inline-flex items-center justify-center gap-2 bg-primary text-primary-container font-bold px-6 py-3 rounded-full text-xs uppercase tracking-widest hover:opacity-90 transition-all shadow-md">
+                        <span class="material-symbols-outlined text-sm">fact_check</span>
+                        Tinjauan Admin
+                    </a>
                 </div>
-            </a>
-            
-            <a href="materi.html" class="group bg-surface border border-outline-variant hover:border-primary rounded-3xl p-6 flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-6 transition-all duration-300 hover:shadow-lg relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                    <span class="material-symbols-outlined text-3xl text-primary">menu_book</span>
-                </div>
-                <div class="relative z-10 text-center lg:text-left">
-                    <h3 class="font-headline font-bold text-lg xl:text-xl text-primary mb-1">Materi & Scholar</h3>
-                    <p class="text-xs text-on-surface-variant leading-relaxed">Cari referensi buku, jurnal, dan naskah sejarah Kesultanan Banten.</p>
-                </div>
-            </a>
-
-            <a href="https://modul-gen-pro-by-rem15.vercel.app" target="_blank" class="group bg-surface border border-outline-variant hover:border-primary rounded-3xl p-6 flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-6 transition-all duration-300 hover:shadow-lg relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                    <span class="material-symbols-outlined text-3xl text-primary">school</span>
-                </div>
-                <div class="relative z-10 text-center lg:text-left">
-                    <h3 class="font-headline font-bold text-lg xl:text-xl text-primary mb-1">Modul Ajar Gen Pro</h3>
-                    <p class="text-xs text-on-surface-variant leading-relaxed">Akses portal eksternal Modul Gen Pro untuk materi ajar interaktif.</p>
-                </div>
-            </a>
+            </div>
         </div>
     </section>
 
@@ -793,8 +779,8 @@
                 animateCounter(document.getElementById('statWilayah'), 8, 1000);
                 animateCounter(document.getElementById('statTahun'), 400, 2000);
                 // Contributor count from localStorage submissions + base
-                const pending = JSON.parse(localStorage.getItem('jsb_contributions') || '[]');
-                const approved = JSON.parse(localStorage.getItem('jsb_approved') || '[]');
+                const pending = JSON.parse(localStorage.getItem('jsb_pendingArticles') || '[]');
+                const approved = JSON.parse(localStorage.getItem('jsb_approvedArticles') || '[]');
                 const total = 12 + pending.length + approved.length;
                 animateCounter(document.getElementById('statKontributor'), total, 1200);
             }
@@ -824,7 +810,7 @@
         if (sortedViews.length > 0) {
             topSitusEmpty.style.display = 'none';
             const maxViews = sortedViews[0][1];
-            const rankLabels = ['ðŸ¥‡', 'ðŸ¥ˆ', 'ðŸ¥‰', '4', '5'];
+            const rankLabels = ['1', '2', '3', '4', '5'];
 
             sortedViews.forEach(([id, count], idx) => {
                 const situs = pusakaData.find(d => d.id === id);
@@ -849,7 +835,7 @@
                     <div class="flex-1 min-w-0">
                         <div class="flex justify-between items-center mb-1">
                             <a href="detail.html?id=${situs.id}" class="text-xs font-bold text-primary hover:underline truncate max-w-[65%]">${situs.nama}</a>
-                            <span class="text-[10px] text-on-surface-variant font-bold ml-2 flex-shrink-0">${count}Ã— kunjungan</span>
+                            <span class="text-[10px] text-on-surface-variant font-bold ml-2 flex-shrink-0">${count}x kunjungan</span>
                         </div>
                         <div class="h-2.5 bg-surface-variant rounded-full overflow-hidden">
                             <div class="h-full rounded-full bar-fill ${barColor}" style="--bar-delay:${idx*0.15}s; width:${pct}%"></div>
@@ -880,7 +866,7 @@
                     </div>
                     <div class="min-w-0 flex-1">
                         <p class="text-xs font-bold text-primary truncate">${item.nama}</p>
-                        <p class="text-[10px] text-on-surface-variant">${timeAgo} Â· ${item.wilayah}</p>
+                        <p class="text-[10px] text-on-surface-variant">${timeAgo} &middot; ${item.wilayah}</p>
                     </div>
                     <span class="material-symbols-outlined text-sm text-on-surface-variant/40 group-hover:text-primary transition-colors flex-shrink-0">arrow_forward_ios</span>
                 `;
@@ -932,7 +918,7 @@
                 div.innerHTML = `
                     <div class="flex justify-between items-center">
                         <span class="text-xs font-bold text-on-surface truncate max-w-[70%]">${wilayah}</span>
-                        <span class="text-[10px] font-bold text-on-surface-variant">${cnt} kunjungan Â· ${Math.round((cnt/grandTotal)*100)}%</span>
+                        <span class="text-[10px] font-bold text-on-surface-variant">${cnt} kunjungan &middot; ${Math.round((cnt/grandTotal)*100)}%</span>
                     </div>
                     <div class="h-3 bg-surface-variant rounded-full overflow-hidden">
                         <div class="h-full rounded-full bg-gradient-to-r ${colorClass} progress-fill" style="--prog-delay:${idx*0.1}s; width:${pct}%"></div>
@@ -1131,6 +1117,8 @@
     const aiChatMessages = document.getElementById('aiChatMessages');
     const aiChatSubmitBtn = document.getElementById('aiChatSubmitBtn');
 
+    if (aiToggleBtn && closeAiBtn && aiChatWindow && aiChatForm && aiChatInput && aiChatMessages && aiChatSubmitBtn) {
+
     // Toggle Chat Window
     aiToggleBtn.addEventListener('click', () => {
         aiChatWindow.classList.toggle('hidden');
@@ -1223,7 +1211,7 @@
                 apiKey = prompt("PENGATURAN AWAL: Silakan tempelkan (paste) API Key Gemini Anda di sini untuk mengaktifkan AI:");
                 if (!apiKey) {
                     removeLoading();
-                    appendMessage("âŒ Akses ditolak karena API Key kosong. Silakan refresh halaman dan coba lagi.", 'ai');
+                    appendMessage("Akses ditolak karena API Key kosong. Silakan refresh halaman dan coba lagi.", 'ai');
                     aiChatInput.disabled = false;
                     aiChatSubmitBtn.disabled = false;
                     return;
@@ -1253,25 +1241,27 @@
                 // Jika API Key salah, hapus dari memori agar bisa memasukkan ulang
                 if (data.error.message.toLowerCase().includes('key') || response.status === 400 || response.status === 403) {
                     localStorage.removeItem('gemini_api_key');
-                    appendMessage("âŒ API Key tidak valid atau salah. Sistem telah meresetnya. Silakan kirim pesan lagi untuk memasukkan API Key yang benar.", 'ai');
+                    appendMessage("API Key tidak valid atau salah. Sistem telah meresetnya. Silakan kirim pesan lagi untuk memasukkan API Key yang benar.", 'ai');
                 } else {
-                    appendMessage("âŒ Error Google: " + data.error.message, 'ai');
+                    appendMessage("Error Google: " + data.error.message, 'ai');
                 }
             } else if (data.candidates && data.candidates[0].content) {
                 appendMessage(data.candidates[0].content.parts[0].text, 'ai');
             } else {
-                appendMessage("âŒ Gagal memahami format balasan server.", 'ai');
+                appendMessage("Gagal memahami format balasan server.", 'ai');
             }
 
         } catch (error) {
             removeLoading();
-            appendMessage("âŒ Terjadi kesalahan koneksi jaringan. Pastikan internet Anda aktif.", 'ai');
+            appendMessage("Terjadi kesalahan koneksi jaringan. Pastikan internet Anda aktif.", 'ai');
         } finally {
             aiChatInput.disabled = false;
             aiChatSubmitBtn.disabled = false;
             aiChatInput.focus();
         }
     });
+
+    }
 
 </script>
 

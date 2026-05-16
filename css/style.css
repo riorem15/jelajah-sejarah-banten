@@ -19,6 +19,10 @@
   --color-outline-variant: 228 204 168; /* #E4CCA8 */
   --color-secondary: 62 39 35; /* #3EFF23 */
   --color-on-secondary: 251 249 244; /* #FBF9F4 */
+  --primary: var(--color-primary);
+  --primary-container: var(--color-primary-container);
+  --surface: rgb(var(--color-surface));
+  --outline-variant: rgb(var(--color-outline-variant));
 }
 
 /* Malam Mode */
@@ -43,6 +47,25 @@ html.dark {
 body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background:
+        linear-gradient(180deg, rgba(var(--color-primary-container), 0.08), transparent 360px),
+        radial-gradient(circle at 20px 20px, rgba(var(--color-primary-container), 0.08) 1px, transparent 1.5px),
+        rgb(var(--color-background));
+    background-size: auto, 32px 32px, auto;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.26;
+    background-image:
+        linear-gradient(90deg, rgba(var(--color-primary), 0.05) 1px, transparent 1px),
+        linear-gradient(rgba(var(--color-primary), 0.04) 1px, transparent 1px);
+    background-size: 96px 96px;
+    mask-image: linear-gradient(to bottom, black, transparent 70%);
 }
 
 /* Material Symbols */
@@ -73,6 +96,70 @@ body {
     border: 1px solid rgba(212, 175, 55, 0.2);
 }
 
+/* Reusable visual polish */
+.heritage-panel {
+    position: relative;
+    isolation: isolate;
+    box-shadow: 0 18px 50px rgba(94, 11, 21, 0.10);
+}
+
+.heritage-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background:
+        linear-gradient(135deg, rgba(var(--color-primary-container), 0.14), transparent 34%),
+        linear-gradient(315deg, rgba(var(--color-primary), 0.07), transparent 42%);
+    opacity: 0.9;
+}
+
+.heritage-panel::after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    z-index: -1;
+    border-radius: inherit;
+    background-image:
+        repeating-linear-gradient(45deg, rgba(var(--color-primary-container), 0.06) 0 1px, transparent 1px 14px);
+    opacity: 0.45;
+    pointer-events: none;
+}
+
+.lift-card {
+    transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.lift-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(94, 11, 21, 0.14);
+}
+
+.image-sheen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.18) 45%, transparent 60%);
+    transform: translateX(-130%);
+    transition: transform 700ms ease;
+    pointer-events: none;
+}
+
+.group:hover .image-sheen::after {
+    transform: translateX(130%);
+}
+
+.soft-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(var(--color-primary-container), 0.65), transparent);
+}
+
+.focus-ring:focus-visible {
+    outline: 3px solid rgba(var(--color-primary-container), 0.55);
+    outline-offset: 3px;
+}
+
 .warm-filter {
     filter: sepia(0.2) contrast(1.1) brightness(0.9);
     transition: filter 0.3s ease;
@@ -81,6 +168,50 @@ body {
 .warm-filter:hover {
     filter: sepia(0) contrast(1.1) brightness(1);
     transform: scale(1.05);
+}
+
+.hero-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.045) 0 1px, transparent 1px 90px),
+        repeating-linear-gradient(0deg, rgba(212,175,55,0.035) 0 1px, transparent 1px 90px);
+    mix-blend-mode: overlay;
+    opacity: 0.65;
+}
+
+.map-dot {
+    filter: drop-shadow(0 8px 12px rgba(94, 11, 21, 0.30));
+}
+
+.map-dot::after {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 8px;
+    left: 50%;
+    bottom: -4px;
+    transform: translateX(-50%);
+    border-radius: 999px;
+    background: rgba(44, 28, 28, 0.20);
+}
+
+.prose article,
+article.prose {
+    text-wrap: pretty;
+}
+
+@media (max-width: 640px) {
+    body {
+        background-size: auto, 24px 24px, auto;
+    }
+
+    .hero-section {
+        border-radius: 1.25rem;
+        min-height: 560px;
+    }
 }
 
 /* Animations */

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="utf-8"/>
@@ -131,14 +131,15 @@
 
         itemData.forEach((item, index) => {
              const delay = (index % 10) * 100;
+             const imageSrc = item.imageEtalase || `assets/etalase/${item.id}.jpg`;
              const card = `
-                <a href="detail.html?id=${item.id}" class="flex flex-col group relative overflow-hidden bg-surface border border-outline-variant rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300" data-aos="fade-up" data-aos-delay="${delay}">
-                    <div class="h-36 md:h-48 overflow-hidden relative border-b border-outline-variant/50 bg-[#2c1c1c]">
+                <a href="detail.html?id=${item.id}" class="lift-card flex flex-col group relative overflow-hidden bg-surface border border-outline-variant rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 focus-ring" data-aos="fade-up" data-aos-delay="${delay}">
+                    <div class="h-40 md:h-52 overflow-hidden relative border-b border-outline-variant/50 bg-[#2c1c1c] image-sheen">
                         <!-- Default mockup image, waiting for real user insertion -->
-                        <div class="absolute inset-0 bg-primary/10 group-hover:bg-primary/0 transition-colors z-10"></div>
-                        <img src="assets/etalase/${item.id}.jpg" alt="${item.nama}" onerror="onCardImgError(this,'${item.id}','${btoa(encodeURIComponent(item.nama))}','${item.wilayah}')" class="w-full h-full object-cover mix-blend-luminosity opacity-90 group-hover:scale-105 transition-transform duration-700"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary/70 via-primary/10 to-transparent opacity-70 group-hover:opacity-45 transition-opacity z-10"></div>
+                        <img src="${imageSrc}" alt="${item.nama}" onerror="onCardImgError(this,'${item.id}','${btoa(encodeURIComponent(item.nama))}','${item.wilayah}')" class="w-full h-full object-cover mix-blend-luminosity opacity-90 group-hover:scale-105 transition-transform duration-700"/>
                         <span class="absolute top-3 md:top-4 right-3 md:right-4 bg-background/90 backdrop-blur-md text-primary px-2 md:px-3 py-1 rounded-[4px] text-[9px] md:text-[10px] font-bold tracking-widest uppercase border border-outline-variant z-20">
-                            Cagar Budaya
+                            ${item.kategori || 'Cagar Budaya'}
                         </span>
                     </div>
                     <div class="p-4 md:p-6 flex flex-col flex-1">
